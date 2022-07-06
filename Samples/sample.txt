@@ -1,0 +1,58 @@
+<start>
+header {
+Color : 'Red',
+Title :'Hello2',
+Size : '15px',
+url : 'C:\Users\maher\Desktop/compiler.html',
+url_control :'test2.php',
+Pos : center,
+};
+body{
+   Text {
+        Color : 'Blue',
+        Content : 'Hello',
+        Size:'40px',
+        Id:'myText',
+        Pos:center,
+            Margin {
+             Right : '40dp',
+             Left : '10dp',
+             Top : '12dp',
+             Bottom : '20dp',
+             Bottom : '20dp'
+            }
+       },
+    Button{
+       Width:'120dp',
+       Height:'120dp',
+       Color:'Blue',
+       Background : 'Red',
+       Id:'myButton',
+       TextButton: 'hello',
+       Margin {
+               Right : '400dp',
+               Left : '10dp',
+               Top : '12dp',
+               Bottom : '20dp'
+              },
+        Event {
+         go_to:'/test.html'
+        }
+    },
+    TextInput{
+           Width:'120dp',
+           Height:'120dp',
+           Color:'Blue',
+           Background : 'Red',
+           Id:'myTextInput',
+           TextHint: 'name',
+           Type : text,
+           Margin {
+                   Right : '40dp',
+                   Left : '10dp',
+                   Top : '12dp',
+                   Bottom : '20dp'
+                  },
+    }
+};
+
