@@ -22,10 +22,13 @@ BODY_TAG : 'body' -> pushMode(BODY);
 CHARS : ([A-Za-z1-9]|'.')+ ;
 
 mode HEADER;
-HEADER_SPACE : ' ' -> skip;
+/*
+HEADER_SPACE : ' '-> skip;
 UNH:'\n'->skip;
 UTH:'\t'->skip;
 URH:'\r'->skip;
+*/
+HIDDEN_CHARS :  ( '\t' | ' ' | '\r' | '\n' )+ ->skip ;
 HEADER_CURLYOPEN : '{';
 TITLE : 'Title';
 H_SINGLE_QUOTE : '\'';
@@ -37,9 +40,10 @@ H_SIZES : [0-9]+'px' | [0-9]+'rem' | [0-9]+'dp';
 H_SIZE :'Size';
 H_POSITION : 'left'|'right'|'center';
 H_POS : 'Pos';
-H_COLOR :'Color';
+H_POINTS : ':';
+H_COLOR :'Color ';
 H_COLORS : 'Blue'| 'Red' | 'Purple' | 'Yellow' | 'Green'| 'White'| 'Black'| 'Brown';
-H_CHARS : ([A-Za-z1-9]|'.'|'\\'|'/'|':')+ ;
+H_CHARS : ([أ-يA-Za-z1-9]|'.'|'\\'|'/'|'_'|':')+;
 HEADER_CURLYCLOSE : '}' ->popMode;
 
 mode BODY;
@@ -73,7 +77,7 @@ TEXT_ID: 'Id' ;
 TEXT_POSITION : 'left'|'right'|'center';
 TEXT_POS : 'Pos';
 MARGIN_TAG:'Margin'->pushMode(MARGIN);
-TEXT_CHARS : ([A-Za-z1-9]|'.')+ ;
+TEXT_CHARS : ([أ-يA-Za-z1-9]|'.'|'_')+ ;
 TEXT_CURLYCLOSE : '}' ->popMode;
 
 mode MARGIN;
@@ -112,7 +116,7 @@ BUTTON_TEXT:'TextButton';
 BUTTON_MARGIN:'Margin'->pushMode(MARGIN);
 BUTTON_EVENT:'Event'->pushMode(EVENT);
 BUTTON_CURLYCLOSE : '}' ->popMode;
-BUTTON_CHARS : ([A-Za-z1-9]|'.')+ ;
+BUTTON_CHARS : ([أ-يA-Za-z1-9]|'.'|'_')+ ;
 
 mode EVENT;
 EVENT_SPACE : ' ' -> skip;
@@ -127,7 +131,7 @@ EVENT_COMMA : ',';
 EVENT_SEMICOLON : ';';
 GOTO : 'go_to';
 EVENT_SLASH:'/';
-EVENT_CHARS : ([A-Za-z1-9]|'.')+ ;
+EVENT_CHARS : ([A-Za-z1-9]|'.'|'_')+ ;
 EVENT_CURLYCLOSE : '}' ->popMode;
 
 mode TI ;
@@ -152,7 +156,7 @@ TI_MARGIN:'Margin'->pushMode(MARGIN);
 TEXTHINT : 'TextHint';
 TYPE : 'Type ';
 INPUT_TYPE: 'text' | 'password' | 'numbers';
-TI_CHARS : ([A-Za-z1-9]|'.')+ ;
+TI_CHARS : ([أ-يA-Za-z1-9]|'.'|'_')+ ;
 TI_CURLYCLOSE : '}' ->popMode;
 
 

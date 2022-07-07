@@ -229,19 +229,257 @@ public class Main {
         if(program.getHeader()!=null){
             fileWriter.write("\n<head>");
             Header header = program.getHeader();
+            String Title = null;
+            String Color = null;
+            String Pos = null;
+            String Size = null;
             for(int i = 0 ;i < header.getAttribuite_headerList().size();i++){
-                String Title = header.getAttribuite_headerList().get(i).getTitle();
-                String Color = header.getAttribuite_headerList().get(i).getColor();
-                String Pos = header.getAttribuite_headerList().get(i).getPos();
-                String Size = header.getAttribuite_headerList().get(i).getSize();
-                if(Title!=null){
-                    fileWriter.write("\n<title>"+Title+"</title>");
+                String Temp_Title = header.getAttribuite_headerList().get(i).getTitle();
+                String Temp_Color = header.getAttribuite_headerList().get(i).getColor();
+                String Temp_Pos = header.getAttribuite_headerList().get(i).getPos();
+                String Temp_Size = header.getAttribuite_headerList().get(i).getSize();
+                if(Temp_Title!=null){
+                    Title=Temp_Title;
+//                    fileWriter.write("\n<title>"+Title+"</title>");
                 }
-                if(Color!=null){
-                    fileWriter.write("\n<style>\nh1 {color : "+Color.toLowerCase(Locale.ROOT)+";}\n</style>");
+                if(Temp_Color!=null){
+                    Color=Temp_Color;
+//                    fileWriter.write("\n<style>\nh1 {color : "+Color.toLowerCase(Locale.ROOT)+";}\n</style>");
+                }
+                if(Temp_Pos!=null){
+                    Pos=Temp_Pos;
+                }
+                if(Temp_Size!=null){
+                    Size=Temp_Size;
                 }
             }
-            fileWriter.write("\n</head>");
+            fileWriter.write("\n</head>\n");
+            fileWriter.write("<header style=\"");
+            if(Color!=null){fileWriter.write("color:"+Color+";");}
+            if(Size!=null){fileWriter.write("font-size:"+Size+";");}
+            if(Pos!=null){fileWriter.write("text-align:"+Pos+";");}
+            fileWriter.write("\">");
+            if(Title!=null){fileWriter.write(Title);}
+            fileWriter.write("</header>");
+            //  fileWriter.write("<header \"style=color:"+Color+";font-size:"+Size+";text-align:"+Pos+">"+Title+"</header>");
+        }
+        if(program.getBody()!=null) {
+            for (int i = 0; i < program.getBody().getAttribuite_bodies().size(); i++) {
+                Text text = program.getBody().getAttribuite_bodies().get(i).getText();
+                Button button = program.getBody().getAttribuite_bodies().get(i).getButton();
+                TextInput textInput = program.getBody().getAttribuite_bodies().get(i).getTextInput();
+                String text_color =null;
+                String text_content =null;
+                String text_size =null;
+                String text_id=null;
+                String text_pos =null;
+                String text_margin_top =null;
+                String text_margin_bottom =null;
+                String text_margin_left =null;
+                String text_margin_right =null;
+                String button_width = null;
+                String button_height = null;
+                String button_event = null;
+                String button_background = null;
+                String input_type = null;
+                String input_hint = null;
+                // TextInput textInput = program.getBody().getAttribuite_bodies().get(i).getTextInput();
+                if (text != null) {
+                    System.out.println("\t\t***TexT***");
+                    for (int j = 0; j < text.getAttribuite_text().size(); j++) {
+                        String Temp_Color = text.getAttribuite_text().get(j).getColor();
+                        String Temp_Content = text.getAttribuite_text().get(j).getContent();
+                        String Temp_Size = text.getAttribuite_text().get(j).getSize();
+                        String Temp_ID = text.getAttribuite_text().get(j).getId();
+                        String Temp_Pos = text.getAttribuite_text().get(j).getPos();
+                        Margin margin = text.getAttribuite_text().get(j).getMargin();
+                        if (Temp_Color != null) {
+                            text_color=Temp_Color;
+                        } else if (Temp_Content != null) {
+                            text_content=Temp_Content;
+                        } else if (Temp_Size != null) {
+                            text_size=Temp_Size;
+                        } else if (Temp_ID != null) {
+                            text_id=Temp_ID;
+                        } else if (Temp_Pos != null) {
+                            text_pos=Temp_Pos;
+                        } else if (margin != null) {
+                            System.out.println("\t***MARGIN TexT***");
+                            for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
+                                String Right = null, Left = null, Top = null, Bottom = null;
+                                if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
+                                    Right = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Left")) {
+                                    Left = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Top")) {
+                                    Top = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Bottom")) {
+                                    Bottom = margin.getAttribuite_margins().get(k).getLocation();
+                                }
+                                if (Right != null) {
+                                    text_margin_right=margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Left != null) {
+                                    text_margin_left = margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Top != null) {
+                                    text_margin_top = margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Bottom != null)
+                                    text_margin_bottom = margin.getAttribuite_margins().get(k).getSizes();
+                            }
+                        }
+                    }
+                    fileWriter.write("\n<p style=\"");
+                    if(text_color!=null){fileWriter.write("color:"+text_color+";");}
+                    if(text_pos!=null){fileWriter.write("text-align:"+text_pos+";");}
+                    if(text_size!=null){fileWriter.write("font-size:"+text_size+";");}
+                    if(text_margin_top!=null){fileWriter.write("margin-top:"+text_margin_top+";");}
+                    if(text_margin_bottom!=null){fileWriter.write("margin-bottom:"+text_margin_bottom+";");}
+                    if(text_margin_right!=null){fileWriter.write("margin-right:"+text_margin_right+";");}
+                    if(text_margin_left!=null){fileWriter.write("margin-left:"+text_margin_left+";");}
+                    fileWriter.write("\"");
+                    if(text_id!=null){fileWriter.write(" id=\""+text_id+"\"");}
+                    fileWriter.write(">");
+                    if(text_content!=null){fileWriter.write(text_content);}
+                    fileWriter.write("</p>");
+                }
+                else if(button!=null){
+                    for ( int j = 0 ;j<button.getAttribuite_button().size();j++){
+                        String Width = button.getAttribuite_button().get(j).getWidth();
+                        String Height = button.getAttribuite_button().get(j).getHeight();
+                        String Color = button.getAttribuite_button().get(j).getColor();
+                        String Background = button.getAttribuite_button().get(j).getBackground();
+                        String ID = button.getAttribuite_button().get(j).getId();
+                        String TextButton = button.getAttribuite_button().get(j).getTextButton();
+                        Margin margin = button.getAttribuite_button().get(j).getMargin();
+                        Event event = button.getAttribuite_button().get(j).getEvent();
+                        if(Width!=null){
+                            button_width=Width;
+                        }else if(Height!=null){
+                            button_height=Height;
+                        }else if(Color!=null){
+                            text_color=Color;
+                        }else if(Background!=null){
+                            button_background=Background;
+                        }else if(ID!=null){
+                            text_id=ID;
+                        }else if(TextButton!=null){
+                            text_content=TextButton;
+                        }else if(margin!=null){
+                            System.out.println("\t***Margin Button***");
+                            for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
+                                String Right = null, Left = null, Top = null, Bottom = null;
+                                if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
+                                    Right = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Left")) {
+                                    Left = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Top")) {
+                                    Top = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Bottom")) {
+                                    Bottom = margin.getAttribuite_margins().get(k).getLocation();
+                                }
+                                if (Right != null) {
+                                    text_margin_right=margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Left != null) {
+                                    text_margin_left = margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Top != null) {
+                                    text_margin_top = margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Bottom != null)
+                                    text_margin_bottom = margin.getAttribuite_margins().get(k).getSizes();
+                            }
+                        }else if (event!=null){
+                            System.out.println("\t***Event***");
+                            for(int l = 0 ;l<event.getAttribuite_event().size();l++){
+                                String Go_to = event.getAttribuite_event().get(l).getGo_to();
+                                if(Go_to!=null){
+                                    button_event=Go_to;
+                                }
+                            }
+                        }
+                    }
+                    fileWriter.write("\n<button style=\"");
+                    if(text_color!=null){fileWriter.write("color:"+text_color+";");}
+                    if(button_height!=null){fileWriter.write("height:"+button_height+";");}
+                    if(button_width!=null){fileWriter.write("width:"+button_width+";");}
+                    if(button_background!=null){fileWriter.write("background-color:"+button_background+";");}
+                    if(text_margin_top!=null){fileWriter.write("margin-top:"+text_margin_top+";");}
+                    if(text_margin_bottom!=null){fileWriter.write("margin-bottom:"+text_margin_bottom+";");}
+                    if(text_margin_right!=null){fileWriter.write("margin-right:"+text_margin_right+";");}
+                    if(text_margin_left!=null){fileWriter.write("margin-left:"+text_margin_left+";");}
+                    fileWriter.write("cursor:pointer;");
+                    fileWriter.write("display:block;");
+                    fileWriter.write("\"");
+                    if(text_id!=null){fileWriter.write(" id=\""+text_id+"\"");}
+                    if(text_id!=null){fileWriter.write(" action=\""+button_event+"\"");}
+                    fileWriter.write(">");
+                    if(text_content!=null){fileWriter.write(text_content);}
+                    fileWriter.write("</button>");
+                }
+                else if(textInput!=null) {
+                    System.out.println("\t\t***TextInput***");
+                    for (int j = 0; j < textInput.getAttribuite_textInput().size(); j++) {
+                        String Width = textInput.getAttribuite_textInput().get(j).getWidth();
+                        String Height = textInput.getAttribuite_textInput().get(j).getHeight();
+                        String Color = textInput.getAttribuite_textInput().get(j).getColor();
+                        String Background = textInput.getAttribuite_textInput().get(j).getBackground();
+                        String ID = textInput.getAttribuite_textInput().get(j).getId();
+                        String TextHint = textInput.getAttribuite_textInput().get(j).getTextHint();
+                        String Type = textInput.getAttribuite_textInput().get(j).getType();
+                        Margin margin = textInput.getAttribuite_textInput().get(j).getMargin();
+                        if (Width != null) {
+                            button_width=Width;
+                        } else if (Height != null) {
+                            button_height=Height;
+                        } else if (Color != null) {
+                            text_color=Color;
+                        } else if (Background != null) {
+                            button_background=Background;
+                        } else if (ID != null) {
+                            text_id=ID;
+                        } else if (TextHint != null) {
+                            input_hint=TextHint;
+                        } else if (Type != null) {
+                            input_type=Type;
+                        } else if (margin != null) {
+                            System.out.println("\t***Margin Text Input***");
+                            for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
+                                String Right = null, Left = null, Top = null, Bottom = null;
+                                if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
+                                    Right = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Left")) {
+                                    Left = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Top")) {
+                                    Top = margin.getAttribuite_margins().get(k).getLocation();
+                                } else if (margin.getAttribuite_margins().get(k).getLocation().equals("Bottom")) {
+                                    Bottom = margin.getAttribuite_margins().get(k).getLocation();
+                                }
+                                if (Right != null) {
+                                    text_margin_right=margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Left != null) {
+                                    text_margin_left = margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Top != null) {
+                                    text_margin_top = margin.getAttribuite_margins().get(k).getSizes();
+                                } else if (Bottom != null)
+                                    text_margin_bottom = margin.getAttribuite_margins().get(k).getSizes();
+                            }
+
+                        }
+                    }
+                    fileWriter.write("\n<input style=\"");
+                    if(text_color!=null){fileWriter.write("color:"+text_color+";");}
+                    if(button_height!=null){fileWriter.write("height:"+button_height+";");}
+                    if(button_width!=null){fileWriter.write("width:"+button_width+";");}
+                    if(button_background!=null){fileWriter.write("background-color:"+button_background+";");}
+                    if(text_margin_top!=null){fileWriter.write("margin-top:"+text_margin_top+";");}
+                    if(text_margin_bottom!=null){fileWriter.write("margin-bottom:"+text_margin_bottom+";");}
+                    if(text_margin_right!=null){fileWriter.write("margin-right:"+text_margin_right+";");}
+                    if(text_margin_left!=null){fileWriter.write("margin-left:"+text_margin_left+";");}
+                    fileWriter.write("\"");
+                    if(text_id!=null){fileWriter.write(" id=\""+text_id+"\"");}
+                    if(input_type!=null){fileWriter.write(" type=\""+input_type+"\"");}
+                    if(input_hint!=null){fileWriter.write(" placeholder=\""+input_hint+"\"");}
+                    fileWriter.write(">");
+                    fileWriter.write("</input>");
+                }
+            }
         }
         fileWriter.write("\n</html>");
         fileWriter.close();

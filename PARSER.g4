@@ -9,12 +9,12 @@ program: (TAG_OPEN START TAG_CLOSE)? header body;
 header : HEADER_TAG  HEADER_CURLYOPEN  ( attribute_header H_COMMA)* attribute_header H_COMMA? HEADER_CURLYCLOSE SEMICOLON ;
 attribute_header : headertitle | headercolor | headersize | headerpos | headerurl | header_url_control
 ;
-header_url_control : URLCONTROL H_CHARS H_SINGLE_QUOTE H_CHARS H_SINGLE_QUOTE;
-headerurl : URL H_CHARS H_SINGLE_QUOTE H_CHARS H_SINGLE_QUOTE;
-headertitle : TITLE  H_CHARS H_SINGLE_QUOTE H_CHARS H_SINGLE_QUOTE;
-headerpos : H_POS H_CHARS H_POSITION ;
-headersize : H_SIZE H_CHARS H_SINGLE_QUOTE H_SIZES H_SINGLE_QUOTE ;
-headercolor : H_COLOR H_CHARS H_SINGLE_QUOTE H_COLORS H_SINGLE_QUOTE ;
+header_url_control : URLCONTROL H_POINTS H_SINGLE_QUOTE H_CHARS H_SINGLE_QUOTE;
+headerurl : URL H_POINTS H_SINGLE_QUOTE H_CHARS H_SINGLE_QUOTE;
+headertitle : TITLE  H_POINTS H_SINGLE_QUOTE H_CHARS H_SINGLE_QUOTE;
+headerpos : H_POS H_POINTS H_POSITION ;
+headersize : H_SIZE H_POINTS H_SINGLE_QUOTE H_SIZES H_SINGLE_QUOTE ;
+headercolor : H_COLOR H_POINTS H_SINGLE_QUOTE H_COLORS H_SINGLE_QUOTE ;
 
 ///////////
 
