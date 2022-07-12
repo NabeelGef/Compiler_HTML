@@ -3,7 +3,7 @@ header {
 Color : 'Yellow',
 Title :'project',
 Size : '50px',
-url : 'C:\Users\maher\Desktop/compiler.html',
+url : 'C:\Users\hp\Desktop/compiler.html',
 url_control :'test2.php',
 Pos : center,
 };
@@ -22,6 +22,24 @@ body{
        Pos : center,
        Id : 'myText2'
        },
+           Button {
+              Width : '50px',
+              Height :'40px',
+              Color :'Blue',
+              Background : 'Red',
+              Id :'myButton',
+              Pos : right,
+              TextButton : 'hello',
+              Margin {
+                      Right : '30px',
+                      Left : '750px',
+                      Top : '20px',
+                      Bottom : '30px',
+                     },
+               Event {
+                go_to :'/test.html'
+               }
+           },
     TextInput{
            Width : '120px',
            Height : '12px',
@@ -35,6 +53,7 @@ body{
            Top : '150px',
            },
         },
+
             TextInput {
                        Width : '120px',
                        Height : '12px',
@@ -49,4 +68,3 @@ body{
                                },
                         }
 };
-

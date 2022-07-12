@@ -24,7 +24,7 @@ import static org.antlr.v4.runtime.CharStreams.fromFileName;
 public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
-        String source = "C:\\Users\\maher\\Desktop\\algorithm\\Samples//sample.txt";
+        String source = "C:\\Users\\hp\\IdeaProjects\\Compiler_HTML\\Samples//sample.txt";
         CharStream charStream = fromFileName(source);
         LEXER lexer = new LEXER(charStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
@@ -356,6 +356,7 @@ public class Main {
                         String Background = button.getAttribuite_button().get(j).getBackground();
                         String ID = button.getAttribuite_button().get(j).getId();
                         String TextButton = button.getAttribuite_button().get(j).getTextButton();
+                        String Pos = button.getAttribuite_button().get(j).getPos();
                         Margin margin = button.getAttribuite_button().get(j).getMargin();
                         Event event = button.getAttribuite_button().get(j).getEvent();
                         if(Width!=null){
@@ -370,7 +371,9 @@ public class Main {
                             text_id=ID;
                         }else if(TextButton!=null){
                             text_content=TextButton;
-                        }else if(margin!=null){
+                        }else if(Pos!=null){
+                            text_pos=Pos;
+                        } else if(margin!=null){
                             System.out.println("\t***Margin Button***");
                             for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
                                 String Right = null, Left = null, Top = null, Bottom = null;
@@ -402,6 +405,7 @@ public class Main {
                             }
                         }
                     }
+                    if(text_pos!=null){fileWriter.write("\n<div style=\"display:flex;justify-content:"+text_pos+";\">");}
                     fileWriter.write("\n<button style=\"");
                     if(text_color!=null){fileWriter.write("color:"+text_color+";");}
                     if(button_height!=null){fileWriter.write("height:"+button_height+";");}
@@ -419,6 +423,7 @@ public class Main {
                     fileWriter.write(">");
                     if(text_content!=null){fileWriter.write(text_content);}
                     fileWriter.write("</button>");
+                    if(text_pos!=null){fileWriter.write("\n</div>");}
                 }
                 else if(textInput!=null) {
                     System.out.println("\t\t***TextInput***");
@@ -430,6 +435,7 @@ public class Main {
                         String ID = textInput.getAttribuite_textInput().get(j).getId();
                         String TextHint = textInput.getAttribuite_textInput().get(j).getTextHint();
                         String Type = textInput.getAttribuite_textInput().get(j).getType();
+                        String Pos = textInput.getAttribuite_textInput().get(j).getPos();
                         Margin margin = textInput.getAttribuite_textInput().get(j).getMargin();
                         if (Width != null) {
                             button_width=Width;
@@ -445,6 +451,8 @@ public class Main {
                             input_hint=TextHint;
                         } else if (Type != null) {
                             input_type=Type;
+                        } else if(Pos!=null) {
+                            text_pos=Pos;
                         } else if (margin != null) {
                             System.out.println("\t***Margin Text Input***");
                             for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
@@ -470,6 +478,7 @@ public class Main {
 
                         }
                     }
+                    if(text_pos!=null){fileWriter.write("\n<div style=\"display:flex;justify-content:"+text_pos+";\">");}
                     fileWriter.write("\n<input style=\"");
                     if(text_color!=null){fileWriter.write("color:"+text_color+";");}
                     if(button_height!=null){fileWriter.write("height:"+button_height+";");}
@@ -485,6 +494,7 @@ public class Main {
                     if(input_hint!=null){fileWriter.write(" placeholder=\""+input_hint+"\"");}
                     fileWriter.write(">");
                     fileWriter.write("</input>");
+                    if(text_pos!=null){fileWriter.write("\n</div>");}
                 }
             }
         }
