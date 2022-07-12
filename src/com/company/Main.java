@@ -490,7 +490,8 @@ public class Main {
                     if(text_margin_left!=null){fileWriter.write("margin-left:"+text_margin_left+";");}
                     fileWriter.write("\"");
                     if(text_id!=null){fileWriter.write(" id=\""+text_id+"\"");}
-                    if(input_type!=null){fileWriter.write(" type=\""+input_type+"\"");}
+                    if(input_type!=null && input_type.equals("numbers")){fileWriter.write(" type=\"number\"");}
+                    else if(input_type!=null){fileWriter.write(" type=\""+input_type+"\"");}
                     if(input_hint!=null){fileWriter.write(" placeholder=\""+input_hint+"\"");}
                     fileWriter.write(">");
                     fileWriter.write("</input>");

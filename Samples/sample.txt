@@ -60,7 +60,7 @@ body{
                        Color : 'Blue',
                        Id : 'myTextInput2',
                        TextHint : 'Password',
-                       Type : password,
+                       Type : numbers,
                        Pos : left,
                        Margin {
                                Left : '500px',
