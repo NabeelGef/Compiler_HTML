@@ -354,7 +354,7 @@ public class BaseVisitor extends PARSERBaseVisitor {
                 errors.push("Button Pos is defined already!!");
             }else{
                 symbol_table.put("Button Pos"+id_button,Color);
-                attribuite_button.setColor(Color);
+                attribuite_button.setPos(Pos);
             }
         }
         if(!Color.isEmpty()){
