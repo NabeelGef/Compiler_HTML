@@ -307,6 +307,16 @@ public interface PARSERListener extends ParseTreeListener {
 	 */
 	void exitEventattribute(PARSER.EventattributeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PARSER#buttonpos}.
+	 * @param ctx the parse tree
+	 */
+	void enterButtonpos(PARSER.ButtonposContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#buttonpos}.
+	 * @param ctx the parse tree
+	 */
+	void exitButtonpos(PARSER.ButtonposContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PARSER#go_to}.
 	 * @param ctx the parse tree
 	 */
@@ -396,6 +406,16 @@ public interface PARSERListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTextinputbackground(PARSER.TextinputbackgroundContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#textinputpos}.
+	 * @param ctx the parse tree
+	 */
+	void enterTextinputpos(PARSER.TextinputposContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#textinputpos}.
+	 * @param ctx the parse tree
+	 */
+	void exitTextinputpos(PARSER.TextinputposContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PARSER#textinputid}.
 	 * @param ctx the parse tree

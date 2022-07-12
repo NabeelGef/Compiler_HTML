@@ -1,8 +1,8 @@
 <start>
 header {
-Color : 'Red',
-Title :'مشروع',
-Size : '15px',
+Color : 'Yellow',
+Title :'project',
+Size : '50px',
 url : 'C:\Users\maher\Desktop/compiler.html',
 url_control :'test2.php',
 Pos : center,
@@ -10,48 +10,43 @@ Pos : center,
 body{
    Text {
         Color : 'Blue',
-        Content : 'This_is_my_Compiler_Project',
-        Size:'40px',
-        Id:'myText',
-        Pos:center,
-            Margin {
-             Right : '40dp',
-             Left : '10dp',
-             Top : '12dp',
-             Bottom : '20dp',
-            }
+        Size : '40px',
+        Content : 'LOGIN',
+        Pos : center,
+        Id : 'myText'
        },
-    Button{
-       Width:'120dp',
-       Height:'120dp',
-       Color:'Blue',
-       Background : 'Red',
-       Id:'myButton',
-       TextButton: 'ادخل',
-       Margin {
-               Right : '400dp',
-               Left : '10dp',
-               Top : '12dp',
-               Bottom : '20dp'
-              },
-        Event {
-         go_to:'/test.html'
-        }
-    },
+   Text {
+       Color : 'Red',
+       Size : '40px',
+       Content : 'To login in your page',
+       Pos : center,
+       Id : 'myText2'
+       },
     TextInput{
-           Width:'120dp',
-           Height:'120dp',
-           Color:'Blue',
-           Background : 'Red',
-           Id:'myTextInput',
-           TextHint: 'name',
+           Width : '120px',
+           Height : '12px',
+           Color : 'Blue',
+           Id : 'myTextInput1',
+           TextHint : 'Email',
+           Pos : center,
            Type : text,
            Margin {
-                   Right : '40dp',
-                   Left : '10dp',
-                   Top : '12dp',
-                   Bottom : '20dp'
-                  },
-    }
+           Left : '500px',
+           Top : '150px',
+           },
+        },
+            TextInput {
+                       Width : '120px',
+                       Height : '12px',
+                       Color : 'Blue',
+                       Id : 'myTextInput2',
+                       TextHint : 'Password',
+                       Type : password,
+                       Pos : left,
+                       Margin {
+                               Left : '500px',
+                               Top : '150px',
+                               },
+                        }
 };
 

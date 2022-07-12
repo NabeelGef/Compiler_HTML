@@ -1,9 +1,17 @@
 package com.company.ast.Nodes;
 
 public class Attribuite_button {
-        String Width , Height , Color , Background , Id,TextButton ;
+        String Width , Height , Color , Background , Id,TextButton , pos ;
         Event event;
         Margin margin;
+
+    public String getPos() {
+        return pos;
+    }
+
+    public void setPos(String pos) {
+        this.pos = pos;
+    }
 
     public void setEvent(Event event) {
         this.event = event;

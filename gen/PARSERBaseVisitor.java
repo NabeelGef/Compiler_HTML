@@ -226,6 +226,13 @@ public class PARSERBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitButtonpos(PARSER.ButtonposContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitGo_to(PARSER.Go_toContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -283,6 +290,13 @@ public class PARSERBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitTextinputbackground(PARSER.TextinputbackgroundContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTextinputpos(PARSER.TextinputposContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

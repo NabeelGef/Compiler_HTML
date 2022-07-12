@@ -190,6 +190,12 @@ public interface PARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEventattribute(PARSER.EventattributeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PARSER#buttonpos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitButtonpos(PARSER.ButtonposContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PARSER#go_to}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -243,6 +249,12 @@ public interface PARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTextinputbackground(PARSER.TextinputbackgroundContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#textinputpos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTextinputpos(PARSER.TextinputposContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PARSER#textinputid}.
 	 * @param ctx the parse tree

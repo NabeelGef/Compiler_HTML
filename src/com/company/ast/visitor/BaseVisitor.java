@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.*;
 
 public class BaseVisitor extends PARSERBaseVisitor {
+
     static HashMap<String ,String> symbol_table = new HashMap<>();
     static Stack<String> errors = new Stack<>();
 
@@ -105,21 +106,21 @@ public class BaseVisitor extends PARSERBaseVisitor {
     {
         if(ctx!=null)
         {
-                return ctx.H_CHARS(1).toString();
+                return ctx.H_CHARS().toString();
         }
         return "";
     }
     @Override
     public String visitHeader_url_control(PARSER.Header_url_controlContext ctx) {
         if(ctx!=null)
-            return ctx.H_CHARS(1).getText();
+            return ctx.H_CHARS().getText();
         return "";
     }
     @Override
     public String visitHeadertitle(PARSER.HeadertitleContext ctx) {
         if(ctx!=null)
         {
-                return ctx.H_CHARS(1).toString();
+                return ctx.H_CHARS().toString();
         }
         return "";
     }
@@ -151,9 +152,9 @@ public class BaseVisitor extends PARSERBaseVisitor {
         }
         return "";
     }
+    int id_text = -1 , id_button = -1 , id_text_input = -1;
     @Override
-    public Body visitBody(PARSER.BodyContext ctx)
-    {
+    public Body visitBody(PARSER.BodyContext ctx) {
         Body body = new Body();
         List<Attribuite_body> attribuite_bodies = new ArrayList<>();
         for(int i =0 ;i<ctx.attribute_body().size();i++){
@@ -166,15 +167,19 @@ public class BaseVisitor extends PARSERBaseVisitor {
     public Attribuite_body visitAttribute_body(PARSER.Attribute_bodyContext ctx) {
         Attribuite_body attribuite_body = new Attribuite_body();
         if(ctx.button()!=null) {
+            id_button++;
             attribuite_body.setButton(visitButton(ctx.button()));
         }
         else if (ctx.text()!=null){
+            id_text++;
             attribuite_body.setText(visitText(ctx.text()));
         }else if (ctx.textinput()!=null) {
+            id_text_input++;
             attribuite_body.setTextInput(visitTextinput(ctx.textinput()));
         }
         return attribuite_body;
     }
+
     @Override
     public Text visitText(PARSER.TextContext ctx) {
         Text text = new Text();
@@ -195,49 +200,50 @@ public class BaseVisitor extends PARSERBaseVisitor {
         String Id = visitTextid(ctx.textid());
         String Pos = visitTextpos(ctx.textpos());
         if(ctx.textmargin()!=null){
-            if(!cheak_multiple_defined_names("Text Margin")) {
+            if(!cheak_multiple_defined_names("Text Margin"+id_text)) {
                 errors.push("Text Margin is defined already");
             }else{
-                symbol_table.put("Text Margin",ctx.textmargin().getText());
+                symbol_table.put("Text Margin"+id_text,ctx.textmargin().getText());
                 attribuite_text.setMargin(visitTextmargin(ctx.textmargin()));
             }
         }
         if(!Color.isEmpty()) {
-            if(!cheak_multiple_defined_names("Text Color")) {
+            if(!cheak_multiple_defined_names("Text Color"+id_text)) {
                 errors.push("Text Color is defined already");
             }else {
-                symbol_table.put("Text Color", Color);
+                symbol_table.put("Text Color"+id_text, Color);
                 attribuite_text.setColor(Color);
             }
         }else if (!Content.isEmpty()){
-            if(!cheak_multiple_defined_names("Text Content")) {
+            if(!cheak_multiple_defined_names("Text Content"+id_text)) {
                 errors.push("Text Content is defined already");
             }else {
-                symbol_table.put("Text Content", Content);
+                symbol_table.put("Text Content"+id_text, Content);
                 attribuite_text.setContent(Content);
             }
         }else if (!Size.isEmpty()){
-            if(!cheak_multiple_defined_names("Text Size")) {
+            if(!cheak_multiple_defined_names("Text Size"+id_text)) {
                 errors.push("Text Size is defined already");
             }else{
-                symbol_table.put("Text Size", Size);
+                symbol_table.put("Text Size"+id_text, Size);
                 attribuite_text.setSize(Size);
             }
         }else if (!Id.isEmpty()){
-            if(!cheak_multiple_defined_names("TextID")) {
+            if(!cheak_multiple_defined_names("TextID"+id_text)) {
                 errors.push("Text ID is defined already");
             }else{
-                symbol_table.put("TextID", Id);
+                symbol_table.put("TextID"+id_text, Id);
                 attribuite_text.setId(Id);
             }
         }else if (!Pos.isEmpty()){
-            if(!cheak_multiple_defined_names("Text Pos")) {
+            if(!cheak_multiple_defined_names("Text Pos"+id_text)) {
                 errors.push("Text Pos is defined already");
             }else {
-                symbol_table.put("Text Pos", Pos);
+                symbol_table.put("Text Pos"+id_text, Pos);
                 attribuite_text.setPos(Pos);
             }
         }
+        symbol_table.put("num_text_id",String.valueOf(id_text));
         return attribuite_text;
     }
     @Override
@@ -295,12 +301,12 @@ public class BaseVisitor extends PARSERBaseVisitor {
     public Attribuite_margin visitMarginattribute(PARSER.MarginattributeContext ctx) {
         Attribuite_margin attribuite_margin = new Attribuite_margin();
         if(ctx.MARGIN_LOCATION()!=null){
-            if(!cheak_multiple_defined_names("Text Margin "+ctx.MARGIN_LOCATION().getText())) {
+            if(!cheak_multiple_defined_names("Text Margin "+ctx.MARGIN_LOCATION().getText()+id_text)) {
                 errors.push("Text Margin "+ctx.MARGIN_LOCATION().getText()+" is defined already");
             }else{
                 attribuite_margin.setLocation(ctx.MARGIN_LOCATION().getText());
                 attribuite_margin.setSizes(ctx.MARGIN_SIZES().getText());
-                symbol_table.put("Text Margin "+ctx.MARGIN_LOCATION().getText(),ctx.MARGIN_LOCATION().getText());
+                symbol_table.put("Text Margin "+ctx.MARGIN_LOCATION().getText()+id_text,ctx.MARGIN_LOCATION().getText());
             }
         }
         return attribuite_margin;
@@ -326,66 +332,76 @@ public class BaseVisitor extends PARSERBaseVisitor {
         String Height = visitHeight(ctx.height());
         String Id = visitButtonid(ctx.buttonid());
         String Background = visitButtonbackground(ctx.buttonbackground());
+        String Pos = visitButtonpos(ctx.buttonpos());
         if(ctx.buttonmargin()!=null)
         {
-            if(!cheak_multiple_defined_names("Button Margin")) {
+            if(!cheak_multiple_defined_names("Button Margin"+id_button)) {
                 errors.push("Button Margin is defined already!!");
                 }else{
-                symbol_table.put("Button Margin","Margin");
+                symbol_table.put("Button Margin"+id_button,"Margin");
                 attribuite_button.setMargin(visitButtonmargin(ctx.buttonmargin()));
             }
         }else if(ctx.event()!=null) {
-            if(!cheak_multiple_defined_names("Button Event")) {
+            if(!cheak_multiple_defined_names("Button Event"+id_button)) {
                 errors.push("Button Event is defined already!!");
             }else{
-                symbol_table.put("Button Event","Event");
+                symbol_table.put("Button Event"+id_button,"Event");
                 attribuite_button.setEvent(visitEvent(ctx.event()));
             }
         }
+        else if(!Pos.isEmpty()){
+            if(!cheak_multiple_defined_names("Button Pos"+id_button)){
+                errors.push("Button Pos is defined already!!");
+            }else{
+                symbol_table.put("Button Pos"+id_button,Color);
+                attribuite_button.setColor(Color);
+            }
+        }
         if(!Color.isEmpty()){
-            if(!cheak_multiple_defined_names("Button Color")){
+            if(!cheak_multiple_defined_names("Button Color"+id_button)){
                 errors.push("Button Color is defined already!!");
             }else{
-                symbol_table.put("Button Color",Color);
+                symbol_table.put("Button Color"+id_button,Color);
                 attribuite_button.setColor(Color);
             }
         }
         else if (!Text_button.isEmpty()){
-            if(!cheak_multiple_defined_names("Button Text")){
+            if(!cheak_multiple_defined_names("Button Text"+id_button)){
                 errors.push("Text_button is defined already!!");
             }else{
-                symbol_table.put("Button Text",Text_button);
+                symbol_table.put("Button Text"+id_button,Text_button);
                 attribuite_button.setTextButton(Text_button);
             }
         }else if (!Width.isEmpty()){
-            if(!cheak_multiple_defined_names("Button Width")){
+            if(!cheak_multiple_defined_names("Button Width"+id_button)){
                 errors.push("Button Width is defined already!!");
             }else{
-                symbol_table.put("Button Width",Width);
+                symbol_table.put("Button Width"+id_button,Width);
                 attribuite_button.setWidth(Width);
             }
         }else if(!Height.isEmpty()){
-            if(!cheak_multiple_defined_names("Button Height")){
+            if(!cheak_multiple_defined_names("Button Height"+id_button)){
                 errors.push("Button Height is defined already!!");
             }else{
-                symbol_table.put("Button Height",Height);
+                symbol_table.put("Button Height"+id_button,Height);
                 attribuite_button.setHeight(Height);
             }
         }else if (!Id.isEmpty()){
-            if(!cheak_multiple_defined_names("ButtonID")) {
+            if(!cheak_multiple_defined_names("ButtonID"+id_button)) {
                 errors.push("Button ID is defined already");
             }else{
-                symbol_table.put("ButtonID", Id);
+                symbol_table.put("ButtonID"+id_button, Id);
                 attribuite_button.setId(Id);
             }
         }else if(!Background.isEmpty()){
-            if(!cheak_multiple_defined_names("Button Background")){
+            if(!cheak_multiple_defined_names("Button Background"+id_button)){
                 errors.push("Button Background is defined already");
             }else{
-                symbol_table.put("Button Background",Background);
+                symbol_table.put("Button Background"+id_button,Background);
                 attribuite_button.setBackground(Background);
             }
         }
+        symbol_table.put("num_button_id",String.valueOf(id_button));
         return attribuite_button;
     }
     @Override
@@ -411,7 +427,13 @@ public class BaseVisitor extends PARSERBaseVisitor {
         }
         return "";
     }
-
+    @Override
+    public String visitButtonpos(PARSER.ButtonposContext ctx) {
+        if(ctx!=null){
+            return ctx.BUTTON_POSITION().getText();
+        }
+        return "";
+    }
     @Override
     public String visitButtonbackground(PARSER.ButtonbackgroundContext ctx) {
         if(ctx!=null){
@@ -453,10 +475,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
         Attribuite_event attribuite_event = new Attribuite_event();
         String go_to = visitGo_to(ctx.go_to());
         if(!go_to.isEmpty()){
-            if(!cheak_multiple_defined_names("Button go_to")) {
+            if(!cheak_multiple_defined_names("Button go_to"+id_button)) {
                 errors.push("Button go_to is defined already!!");
             }else{
-                symbol_table.put("Button go_to",go_to);
+                symbol_table.put("Button go_to"+id_button,go_to);
                 attribuite_event.setGo_to(go_to);
             }
         }//perhaps many of data for Events I don't know
@@ -486,11 +508,11 @@ public class BaseVisitor extends PARSERBaseVisitor {
     public Attribuite_margin visitButtonmarginattribute(PARSER.ButtonmarginattributeContext ctx) {
         Attribuite_margin attribuite_margin = new Attribuite_margin();
         if(ctx.MARGIN_LOCATION()!=null) {
-            if (!cheak_multiple_defined_names("Button Margin "+ctx.MARGIN_LOCATION().getText())){
+            if (!cheak_multiple_defined_names("Button Margin "+ctx.MARGIN_LOCATION().getText()+id_button)){
                 errors.push("Button Margin"+ctx.MARGIN_LOCATION().getText()+" is defined already!!");
             }
             else{
-                symbol_table.put("Button Margin "+ctx.MARGIN_LOCATION().getText(),ctx.MARGIN_LOCATION().getText());
+                symbol_table.put("Button Margin "+ctx.MARGIN_LOCATION().getText()+id_button,ctx.MARGIN_LOCATION().getText());
                 attribuite_margin.setLocation(ctx.MARGIN_LOCATION().getText());
                 attribuite_margin.setSizes(ctx.MARGIN_SIZES().getText());
             }
@@ -517,65 +539,76 @@ public class BaseVisitor extends PARSERBaseVisitor {
         String Id = visitTextinputid(ctx.textinputid());
         String Background = visitTextinputbackground(ctx.textinputbackground());
         String Type = visitType(ctx.type());
+        String Pos = visitTextinputpos(ctx.textinputpos());
         if(ctx.textinputmargin()!=null) {
-            if(!cheak_multiple_defined_names("TextInput Margin")) {
+            if(!cheak_multiple_defined_names("TextInput Margin"+id_text_input)) {
                 errors.push("TextInput Margin is defined already");
             }else{
-                symbol_table.put("TextInput Margin","Margin");
+                symbol_table.put("TextInput Margin"+id_text_input,"Margin");
                 attribuite_textInput.setMargin(visitTextinputmargin(ctx.textinputmargin()));
             }
         }
         if(!Color.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput Color")){
+            if(!cheak_multiple_defined_names("TextInput Color"+id_text_input)){
                 errors.push("TextInput Color is defined already!!");
             }else{
-                symbol_table.put("TextInput Color",Color);
+                symbol_table.put("TextInput Color"+id_text_input,Color);
                 attribuite_textInput.setColor(Color);
             }
-        }else if (!Text_Hint.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput Text_hint")){
+
+        }else if (!Pos.isEmpty()){
+          if(!cheak_multiple_defined_names("TextInput pos"+id_text_input)){
+              errors.push("TextInput Pos is defined already!!");
+          }else{
+              symbol_table.put("TextInput pos"+id_text_input,Pos);
+              attribuite_textInput.setPos(Pos);
+          }
+        }
+        else if (!Text_Hint.isEmpty()){
+            if(!cheak_multiple_defined_names("TextInput Text_hint"+id_text_input)){
                 errors.push("TextInput Text_hint is defined already!!");
             }else{
-                symbol_table.put("TextInput Text_hint",Text_Hint);
+                symbol_table.put("TextInput Text_hint"+id_text_input,Text_Hint);
                 attribuite_textInput.setTextHint(Text_Hint);
             }
         }else if (!Width.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput Width")){
+            if(!cheak_multiple_defined_names("TextInput Width"+id_text_input)){
                 errors.push("TextInput Width is defined already!!");
             }else{
-                symbol_table.put("TextInput Width",Width);
+                symbol_table.put("TextInput Width"+id_text_input,Width);
                 attribuite_textInput.setWidth(Width);
             }
         }else if (!Height.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput Height")){
+            if(!cheak_multiple_defined_names("TextInput Height"+id_text_input)){
                 errors.push("TextInput Height is defined already!!");
                }
             else{
-                symbol_table.put("TextInput Height",Height);
+                symbol_table.put("TextInput Height"+id_text_input,Height);
                 attribuite_textInput.setHeight(Height);
             }
         }else if (!Id.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput ID")) {
+            if(!cheak_multiple_defined_names("TextInput ID"+id_text_input)) {
                 errors.push("TextInput Id is defined already!!");
             }else{
-                symbol_table.put("TextInputID", Id);
+                symbol_table.put("TextInputID"+id_text_input, Id);
                 attribuite_textInput.setId(Id);
             }
         }else if (!Background.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput Background")){
+            if(!cheak_multiple_defined_names("TextInput Background"+id_text_input)){
                 errors.push("TextInput Background is defined already!!");
             }else{
-                symbol_table.put("TextInput Background",Background);
+                symbol_table.put("TextInput Background"+id_text_input,Background);
                 attribuite_textInput.setBackground(Background);
             }
         }else if (!Type.isEmpty()){
-            if(!cheak_multiple_defined_names("TextInput Type")) {
+            if(!cheak_multiple_defined_names("TextInput Type"+id_text_input)) {
               errors.push("TextInput Type is defined already!!");
             }else{
-                symbol_table.put("TextInput Type",Type);
+                symbol_table.put("TextInput Type"+id_text_input,Type);
                 attribuite_textInput.setType(Type);
             }
         }
+        symbol_table.put("num_textInput_id",String.valueOf(id_text_input));
         return attribuite_textInput;
     }
     @Override
@@ -599,6 +632,13 @@ public class BaseVisitor extends PARSERBaseVisitor {
             return ctx.TI_COLORS().getText();
         }
         return "";
+    }
+    @Override
+    public String visitTextinputpos(PARSER.TextinputposContext ctx) {
+     if(ctx!=null){
+         return ctx.TI_POSITION().getText();
+     }
+     return "";
     }
 
     @Override
@@ -632,10 +672,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
     public Attribuite_margin visitTextinputmarginattribute(PARSER.TextinputmarginattributeContext ctx) {
         Attribuite_margin attribuite_margin = new Attribuite_margin();
         if(ctx.MARGIN_LOCATION()!=null){
-            if(!cheak_multiple_defined_names("TextInput Margin "+ctx.MARGIN_LOCATION().getText())) {
+            if(!cheak_multiple_defined_names("TextInput Margin "+ctx.MARGIN_LOCATION().getText()+id_text_input)) {
                 errors.push("TextInput Margin "+ctx.MARGIN_LOCATION().getText()+" is defined already!!");
             }else{
-                symbol_table.put("TextInput Margin "+ctx.MARGIN_LOCATION().getText(),ctx.MARGIN_LOCATION().getText());
+                symbol_table.put("TextInput Margin "+ctx.MARGIN_LOCATION().getText()+id_text_input,ctx.MARGIN_LOCATION().getText());
                 attribuite_margin.setLocation(ctx.MARGIN_LOCATION().getText());
                 attribuite_margin.setSizes(ctx.MARGIN_SIZES().getText());
             }

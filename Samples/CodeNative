@@ -1,57 +1,58 @@
 <start>
 header {
-Title:'Hello',
-Color : 'Blue',
-Size : '15px',
-url:'/test.php',
-Pos :center
+Color : 'Yellow',
+Title :'project',
+Size : '50px',
+url : 'C:\Users\maher\Desktop/compiler.html',
+url_control :'test2.php',
+Pos : center,
 };
 body{
    Text {
         Color : 'Blue',
-        Content : 'Hello',
-        Size:'40px',
-        Id:'myText',
-        Pos:center,
-        Margin {
-             Right : '40dp',
-             Left : '10dp',
-             Top : '12dp',
-             Bottom : '20dp'
-            }
-        },
-    Button{
-       Width:'120dp',
-       Height:'120dp',
-       Color:'Blue',
-       Background : 'Red',
-       Id:'myButton',
-       TextButton: 'hello',
-       Margin {
-               Right : '40dp',
-               Left : '10dp',
-               Top : '12dp',
-               Bottom : '20dp'
+        Size : '40px',
+        Content : 'LOGIN',
+        Pos : center,
+        Id : 'myText'
+       },
+       Text {
+               Color : 'Red',
+               Size : '40px',
+               Content : 'To login in your page',
+               Pos : center,
+               Id : 'myText_2'
               },
-        Event {
-         go_to:'/test.html'
-        }
-    },
+
+       Button {
+       Width : '520px',
+       Height : '120px',
+       Color : 'Blue',
+       Id : 'myButton',
+       TextButton : 'enter ',
+       Margin {
+       Right : '150px',
+       Left : '150px',
+       Top : '150px',
+       Bottom : '150px'
+       },
+       Event {
+       go_to : '/test.html'
+       }
+       },
     TextInput{
-           Width:'120dp',
-           Height:'120dp',
-           Content : 'hi',//Processing...
-           Color:'Blue',
+           Width : '120px',
+           Height : '120px',
+           Color : 'Blue',
            Background : 'Red',
-           Id:'myTextInput',
-           TextHint: 'name',
-           Margin {
-                   Right : '40dp',
-                   Left : '10dp',
-                   Top : '12dp',
-                   Bottom : '20dp'
-                  },
+           Id : 'myTextInput',
+           TextHint : 'name',
            Type : text,
-    }
+           Margin {
+                   Right : '40px',
+                   Left : '10px',
+                   Top : '12px',
+                   Bottom : '20px'
+                  },
+            }
 };
 

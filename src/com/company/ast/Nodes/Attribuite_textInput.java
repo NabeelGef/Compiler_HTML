@@ -1,8 +1,16 @@
 package com.company.ast.Nodes;
 
 public class Attribuite_textInput {
-    String Width , Height , Color , Background , Id,TextHint, Type;
+    String Width , Height , Color , Background , Id,TextHint, Type , pos;
     Margin margin;
+
+    public String getPos() {
+        return pos;
+    }
+
+    public void setPos(String pos) {
+        this.pos = pos;
+    }
 
     public String getWidth() {
         return Width;

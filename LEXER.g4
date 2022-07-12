@@ -19,16 +19,14 @@ COMMA : ',';
 SEMICOLON : ';';
 HEADER_TAG : 'header'->pushMode(HEADER);
 BODY_TAG : 'body' -> pushMode(BODY);
-CHARS : ([A-Za-z1-9]|'.')+ ;
-
+CHARS : ('_'|':'|'\\'|'/'|'.')*[a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')*(' '? [a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')?)*;
 mode HEADER;
-/*
+
 HEADER_SPACE : ' '-> skip;
 UNH:'\n'->skip;
 UTH:'\t'->skip;
 URH:'\r'->skip;
-*/
-HIDDEN_CHARS :  ( '\t' | ' ' | '\r' | '\n' )+ ->skip ;
+
 HEADER_CURLYOPEN : '{';
 TITLE : 'Title';
 H_SINGLE_QUOTE : '\'';
@@ -41,9 +39,9 @@ H_SIZE :'Size';
 H_POSITION : 'left'|'right'|'center';
 H_POS : 'Pos';
 H_POINTS : ':';
-H_COLOR :'Color ';
+H_COLOR :'Color';
 H_COLORS : 'Blue'| 'Red' | 'Purple' | 'Yellow' | 'Green'| 'White'| 'Black'| 'Brown';
-H_CHARS : ([أ-يA-Za-z1-9]|'.'|'\\'|'/'|'_'|':')+;
+H_CHARS : ('_'|':'|'\\'|'/'|'.')*[a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')*(' '? [a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')?)*;
 HEADER_CURLYCLOSE : '}' ->popMode;
 
 mode BODY;
@@ -77,7 +75,7 @@ TEXT_ID: 'Id' ;
 TEXT_POSITION : 'left'|'right'|'center';
 TEXT_POS : 'Pos';
 MARGIN_TAG:'Margin'->pushMode(MARGIN);
-TEXT_CHARS : ([أ-يA-Za-z1-9]|'.'|'_')+ ;
+TEXT_CHARS :('_'|':'|'\\'|'/'|'.')*[a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')*(' '? [a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')?)*;
 TEXT_CURLYCLOSE : '}' ->popMode;
 
 mode MARGIN;
@@ -100,6 +98,8 @@ UNBS:'\n'->skip;
 UTBS:'\t'->skip;
 URBS:'\r'->skip;
 
+BUTTON_POS : 'Pos';
+BUTTON_POSITION : 'center'|'right'|'left';
 BUTTON_CURLYOPEN : '{';
 BUTTON_COLON : ':';
 BUTTON_SINGLE_QUOTE : '\'';
@@ -116,7 +116,8 @@ BUTTON_TEXT:'TextButton';
 BUTTON_MARGIN:'Margin'->pushMode(MARGIN);
 BUTTON_EVENT:'Event'->pushMode(EVENT);
 BUTTON_CURLYCLOSE : '}' ->popMode;
-BUTTON_CHARS : ([أ-يA-Za-z1-9]|'.'|'_')+ ;
+BUTTON_CHARS : ('_'|':'|'\\'|'/'|'.')*[a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')*(' '? [a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')?)*;
+
 
 mode EVENT;
 EVENT_SPACE : ' ' -> skip;
@@ -130,8 +131,8 @@ EVENT_SINGLE_QUOTE : '\'';
 EVENT_COMMA : ',';
 EVENT_SEMICOLON : ';';
 GOTO : 'go_to';
-EVENT_SLASH:'/';
-EVENT_CHARS : ([A-Za-z1-9]|'.'|'_')+ ;
+EVENT_CHARS : ('_'|':'|'\\'|'/'|'.')*[a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')*(' '? [a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')?)*;
+
 EVENT_CURLYCLOSE : '}' ->popMode;
 
 mode TI ;
@@ -140,6 +141,8 @@ UNTI:'\n'->skip;
 UTTI:'\t'->skip;
 URTI:'\r'->skip;
 
+TI_POS : 'Pos';
+TI_POSITION : 'center'|'right'|'left';
 TI_CURLYOPEN : '{';
 TI_COLON : ':';
 TI_SINGLE_QUOTE : '\'';
@@ -156,7 +159,7 @@ TI_MARGIN:'Margin'->pushMode(MARGIN);
 TEXTHINT : 'TextHint';
 TYPE : 'Type ';
 INPUT_TYPE: 'text' | 'password' | 'numbers';
-TI_CHARS : ([أ-يA-Za-z1-9]|'.'|'_')+ ;
+TI_CHARS : ('_'|':'|'\\'|'/'|'.')*[a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')*(' '? [a-zA-Z0-9ا-ي]+('_'|':'|'\\'|'/'|'.')?)*;
 TI_CURLYCLOSE : '}' ->popMode;
 
 

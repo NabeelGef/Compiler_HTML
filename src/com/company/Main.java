@@ -124,6 +124,7 @@ public class Main {
                     String TextButton = button.getAttribuite_button().get(j).getTextButton();
                     Margin margin = button.getAttribuite_button().get(j).getMargin();
                     Event event = button.getAttribuite_button().get(j).getEvent();
+                    String Pos = button.getAttribuite_button().get(j).getPos();
                     if(Width!=null){
                         System.out.println("Width : " + Width);
                     }else if(Height!=null){
@@ -132,7 +133,10 @@ public class Main {
                         System.out.println("Color : " + Color);
                     }else if(Background!=null){
                         System.out.println("Background : " + Background);
-                    }else if(ID!=null){
+                    }else if(Pos!=null){
+                        System.out.println("Pos : " + Pos);
+                    }
+                    else if(ID!=null){
                         System.out.println("ID : " + ID);
                     }else if(TextButton!=null){
                         System.out.println("Text Button : " + TextButton);
@@ -180,6 +184,7 @@ public class Main {
                     String TextHint = textInput.getAttribuite_textInput().get(j).getTextHint();
                     String Type = textInput.getAttribuite_textInput().get(j).getType();
                     Margin margin = textInput.getAttribuite_textInput().get(j).getMargin();
+                    String Pos = textInput.getAttribuite_textInput().get(j).getPos();
                     if (Width != null) {
                         System.out.println("Width : " + Width);
                     } else if (Height != null) {
@@ -188,7 +193,9 @@ public class Main {
                         System.out.println("Color : " + Color);
                     } else if (Background != null) {
                         System.out.println("Background : " + Background);
-                    } else if (ID != null) {
+                    }else if(Pos!=null){
+                        System.out.println("Pos : " + Pos);
+                    }else if (ID != null) {
                         System.out.println("ID : " + ID);
                     } else if (TextHint != null) {
                         System.out.println("Text Hint : " + TextHint);
@@ -506,18 +513,72 @@ public class Main {
                         throw new FileNotFoundException(Furl_control+" is not found!!");
                     }
             }
-                String TextID = BaseVisitor.getSymbol_table().get("TextID");
-                String ButtonID = BaseVisitor.getSymbol_table().get("ButtonID");
-                String TextInputID = BaseVisitor.getSymbol_table().get("TextInputID");
-                if(ButtonID.equals(TextID)){
-                    throw new ParseException("This Id "+ButtonID+ " is defined by Text Attribute",1);
-                }
-                if(TextInputID.equals(ButtonID)){
-                    throw new ParseException("This Id "+TextInputID+ " is defined by Button Attribute",1);
-                }
-                if(TextInputID.equals(TextID)){
-                    throw new ParseException("This Id "+TextInputID+ " is defined by Text Attribute",1);
-                }
+                check_IDS();
                 generateAst(program);
+    }
+    private static  void check_IDS() throws ParseException {
+        int numTextID = 0 , numButtonID = 0 ,numTextInputID = 0;
+        if(BaseVisitor.getSymbol_table().get("num_text_id")!=null){
+            numTextID = Integer.parseInt(BaseVisitor.getSymbol_table().get("num_text_id"))+1;
+        }
+        if(BaseVisitor.getSymbol_table().get("num_button_id")!=null){
+            numButtonID = Integer.parseInt(BaseVisitor.getSymbol_table().get("num_button_id"))+1;
+        }
+        if(BaseVisitor.getSymbol_table().get("num_textInput_id")!=null){
+            numTextInputID = Integer.parseInt(BaseVisitor.getSymbol_table().get("num_textInput_id"))+1;
+        }
+        for(int nums = 0 ; nums<numTextID;nums++){
+            String TextID1 = BaseVisitor.getSymbol_table().get("TextID"+nums);
+            for(int k = nums+1;k<numTextID;k++){
+              String TextID2 = BaseVisitor.getSymbol_table().get("TextID"+k);
+              if(TextID1.equals(TextID2)){
+                  throw new ParseException("This Id "+TextID2+ " is defined by Text Attribute",1);
+              }
+          }
+        }for(int nums = 0 ; nums<numButtonID;nums++){
+            String ButtonID1 = BaseVisitor.getSymbol_table().get("ButtonID"+nums);
+            for(int k = nums+1;k<numButtonID;k++){
+                String ButtonID2 = BaseVisitor.getSymbol_table().get("ButtonID"+k);
+                if(ButtonID1.equals(ButtonID2)){
+                    throw new ParseException("This Id "+ButtonID2+ " is defined by Button Attribute",1);
+                }
+            }
+        }for(int nums = 0 ; nums<numTextInputID;nums++){
+            String TextInputID1 = BaseVisitor.getSymbol_table().get("TextInputID"+nums);
+            for(int k = nums+1;k<numTextInputID;k++){
+                String TextInputID2 = BaseVisitor.getSymbol_table().get("TextInputID"+k);
+                if(TextInputID1.equals(TextInputID2)){
+                    throw new ParseException("This Id "+TextInputID2+ " is defined by Text Attribute",1);
+                }
+            }
+        }
+        for(int i = 0;i<numTextID;i++){
+            String TextID1 = BaseVisitor.getSymbol_table().get("TextID"+i);
+            for(int j = 0;j<numButtonID;j++){
+                String ButtonID2 = BaseVisitor.getSymbol_table().get("ButtonID"+j);
+                if(TextID1.equals(ButtonID2)){
+                    throw new ParseException("This Id "+ButtonID2+ " is defined by Text Attribute",1);
+                }
+
+            }
+        }
+        for(int i = 0 ; i<numTextID;i++){
+            String TextID1 = BaseVisitor.getSymbol_table().get("TextID"+i);
+            for(int j = 0;j<numTextInputID;j++) {
+                String TextInputID2 = BaseVisitor.getSymbol_table().get("TextInputID"+j);
+                if(TextID1.equals(TextInputID2)){
+                    throw new ParseException("This Id "+TextInputID2+ " is defined by Text Attribute",1);
+                }
+            }
+        }
+        for(int i = 0 ;i<numButtonID;i++){
+            String ButtonID1 = BaseVisitor.getSymbol_table().get("ButtonID"+i);
+            for(int j= 0 ; j < numTextInputID;j++){
+                String TextInputID2 = BaseVisitor.getSymbol_table().get("TextInputID"+j);
+                if(ButtonID1.equals(TextInputID2)){
+                    throw new ParseException("This Id "+TextInputID2+ " is defined by Button Attribute",1);
+                }
+            }
+        }
     }
 }

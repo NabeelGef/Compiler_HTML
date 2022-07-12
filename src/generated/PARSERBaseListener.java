@@ -375,6 +375,18 @@ public class PARSERBaseListener implements PARSERListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterButtonpos(PARSER.ButtonposContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitButtonpos(PARSER.ButtonposContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterGo_to(PARSER.Go_toContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -478,6 +490,18 @@ public class PARSERBaseListener implements PARSERListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTextinputbackground(PARSER.TextinputbackgroundContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTextinputpos(PARSER.TextinputposContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTextinputpos(PARSER.TextinputposContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
