@@ -3,7 +3,7 @@ header {
 Color : 'Yellow',
 Title :'project',
 Size : '50px',
-url : 'C:\Users\hp\Desktop/compiler.html',
+url : 'C:\Users\maher\Desktop/compiler.html',
 url_control :'test2.php',
 Pos : center,
 };
@@ -15,56 +15,64 @@ body{
         Pos : center,
         Id : 'myText'
        },
-   Text {
-       Color : 'Red',
-       Size : '40px',
-       Content : 'To login in your page',
-       Pos : center,
-       Id : 'myText2'
+       Text {
+               Color : 'Red',
+               Size : '40px',
+               Content : 'To login in your page',
+               Pos : center,
+               Id : 'myText_2'
+              },
+
+       Button {
+       Width : '520px',
+       Height : '120px',
+       Color : 'Blue',
+       Id : 'myButton',
+       TextButton : 'enter ',
+       Margin {
+       Right : '150px',
+       Left : '150px',
+       Top : '150px',
+       Bottom : '150px'
        },
-           Button {
-              Width : '50px',
-              Height :'40px',
-              Color :'Blue',
-              Background : 'Red',
-              Id :'myButton',
-              Pos : right,
-              TextButton : 'hello',
-              Margin {
-                      Right : '30px',
-                      Left : '750px',
-                      Top : '20px',
-                      Bottom : '30px',
-                     },
-               Event {
-                go_to :'/test.html'
-               }
-           },
+       Event {
+
+       go_to : '/test.html'
+       }
+       },
     TextInput{
            Width : '120px',
-           Height : '12px',
+           Height : '120px',
            Color : 'Blue',
-           Id : 'myTextInput1',
-           TextHint : 'Email',
-           Pos : center,
+           Background : 'Red',
+           Id : 'myTextInput',
+           TextHint : 'name',
            Type : text,
            Margin {
-           Left : '500px',
-           Top : '150px',
-           },
-        },
-
-            TextInput {
-                       Width : '120px',
-                       Height : '12px',
-                       Color : 'Blue',
-                       Id : 'myTextInput2',
-                       TextHint : 'Password',
-                       Type : numbers,
-                       Pos : left,
-                       Margin {
-                               Left : '500px',
-                               Top : '150px',
-                               },
-                        }
+                   Right : '40px',
+                   Left : '10px',
+                   Top : '12px',
+                   Bottom : '20px'
+                  },
+            },
+       OnClick{
+              text = getData('myText2');
+              ID2 = 'myButton';
+              ID3 = 'myButton2';
+              kk = getData('nabeel');
+              button = getData(ID3);
+              button = getData(ID2);
+              button.onClick(){
+              text.Color = 'Red',
+              text.Content = 'Hi',
+              text.Background = 'Blue',
+              text.Size = '15px',
+              button.Height = '150px',
+              button.Width = '150dp',
+              button.Background = 'Blue',
+              button.Content = 'Hi',
+              button.Color = 'Green',
+              };
+            }
 };
+

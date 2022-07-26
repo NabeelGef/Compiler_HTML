@@ -54,7 +54,53 @@ B_COMMA : ',';
 TEXT_TAG:'Text' -> pushMode(TEXT);
 BUTTON_TAG:'Button'-> pushMode(BUTTON);
 TI_TAG : 'TextInput' -> pushMode(TI);
+ON_CLICK : 'OnClick' -> pushMode(ONCLICK);
 B_CURLYCLOSE : '}' ->popMode;
+
+
+mode ONCLICK;
+SPACE_ONCLICK : ' '-> skip;
+UN_ONCLICK:'\n'->skip;
+UT_ONCLICK:'\t'->skip;
+UR_ONCLICK:'\r'->skip;
+CURLYOPEN_ONCLICK: '{';
+CURLYCLOSE_ONCLICK : '}' -> popMode;
+DOT_ONCLICK : '.';
+GET_DATA : 'getData';
+OPEN_GETDATA : '(';
+CLOSE_GETDATA : ')';
+ONCLICK_FUNCTION : 'onClick()' -> pushMode(INNER_ONCLICK);
+SINGLE_QUOTE_ONCLICK : '\'';
+SEMICOLON_ONCLICK : ';';
+EQUAL_ONCLICK : '=';
+CHARS_ONCLICK :('_')*[a-zA-Z0-9]+('_')*(' '? [a-zA-Z0-9]+)*;
+
+
+mode INNER_ONCLICK;
+SPACEI : ' '->skip;
+UNI:'\n'->skip;
+UTI:'\t'->skip;
+URI:'\r'->skip;
+CURLYOPEN_INNERONCLICK: '{';
+CURLYCLOSE_INNERONCLICK : '}';
+SEMICOLON_INNERONCLICK : ';' -> popMode ;
+COLORS_INNERONCLICK : 'Blue'| 'Red' | 'Purple' | 'Yellow' | 'Green'| 'White'| 'Black'| 'Brown';
+SIZES_INNERONCLICK : [0-9]+'px' | [0-9]+'rem' | [0-9]+'dp';
+WIDTH_INNERONCLICK :'Width';
+CONTENT_INNERONCLICK : 'Content';
+COLOR_INNERONCLICK :'Color';
+BACKGROUND_INNERONCLICK : 'Background';
+HEIGHT_INNERONCLICK : 'Height';
+SIZE_INNERONCLICK : 'Size';
+DOT_INNERONCLICK : '.';
+EQUAL_INNERONCLICK : '=';
+SINGLE_QUOTE_INNERONCLICK : '\'';
+COMMA_INNERONCLICK : ',';
+
+
+
+CHARS_INNERONCLICK :('_')*[a-zA-Z0-9]+('_')*(' '? [a-zA-Z0-9]+)*;
+
 
 mode TEXT;
 TEXT_SPACE : ' ' -> skip;

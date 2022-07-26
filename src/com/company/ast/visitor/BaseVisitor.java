@@ -11,6 +11,232 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.*;
 
 public class BaseVisitor extends PARSERBaseVisitor {
+    private static final String ID = "GETDATA";
+    @Override
+    public OnClick visitOnclick(PARSER.OnclickContext ctx) {
+    OnClick onclick = new OnClick();
+    if(ctx.equalization()!=null){
+        ArrayList<Equalizaition>equalizaitions = new ArrayList<>();
+        for(int i = 0;i<ctx.equalization().size();i++){
+            equalizaitions.add(visitEqualization(ctx.equalization(i)));
+        }
+        onclick.setEqualizaitions(equalizaitions);
+    }
+        if(ctx.getData()!=null){
+            ArrayList<getData> getData = new ArrayList<>();
+            for(int i = 0 ;i < ctx.getData().size();i++){
+                getData.add(visitGetData(ctx.getData(i)));
+            }
+            onclick.setGetData(getData);
+        }
+    if(ctx.dot_onClick()!=null){
+        ArrayList<Dot_OnClick>dot_onClicks = new ArrayList<>();
+        for(int i = 0;i<ctx.dot_onClick().size();i++){
+            dot_onClicks.add(visitDot_onClick(ctx.dot_onClick(i)));
+        }
+        onclick.setDot_onClicks(dot_onClicks);
+    }
+    return  onclick;
+    }
+
+    @Override
+    public getData visitGetData(PARSER.GetDataContext ctx) {
+        getData getsData = new getData();
+        getsData.setName_variables(ctx.CHARS_ONCLICK(0).getText());
+        getsData.setValue_variables(ctx.CHARS_ONCLICK(1).getText());
+        symbol_table.put(ctx.CHARS_ONCLICK(0).getText(),ID);
+        if(ctx.SINGLE_QUOTE_ONCLICK().size()==0){
+          if(cheak_multiple_defined_names(ctx.CHARS_ONCLICK(1).getText())){
+              errors.push("The " + ctx.CHARS_ONCLICK(1).getText() + " is not defined");
+          }
+        }
+        return getsData;
+    }
+
+    @Override
+    public Equalizaition visitEqualization(PARSER.EqualizationContext ctx) {
+        Equalizaition equalizaition = new Equalizaition();
+        equalizaition.setName_variables(ctx.CHARS_ONCLICK(0).getText());
+        equalizaition.setValue_variables(ctx.CHARS_ONCLICK(1).getText());
+        if(!cheak_multiple_defined_names(ctx.CHARS_ONCLICK(0).getText())){
+            errors.push("The " + ctx.CHARS_ONCLICK(0).getText() + " is Defined already!!");
+        }else
+        {
+            if(ctx.SINGLE_QUOTE_ONCLICK()!=null){
+                symbol_table.put(ctx.CHARS_ONCLICK(0).getText(),ctx.CHARS_ONCLICK(1).getText());
+            }else{
+                if(cheak_multiple_defined_names(ctx.CHARS_ONCLICK(1).getText())){
+                    errors.push("The " + ctx.CHARS_ONCLICK(1).getText() + "is not defined!!");
+                }
+                else{
+                    symbol_table.put(ctx.CHARS_ONCLICK(0).getText(),ctx.CHARS_ONCLICK(1).getText());
+                }
+            }
+        }
+        return equalizaition;
+    }
+
+    @Override
+    public Dot_OnClick visitDot_onClick(PARSER.Dot_onClickContext ctx) {
+       Dot_OnClick dot_onClick = new Dot_OnClick();
+       if(!cheak_multiple_defined_names(ctx.CHARS_ONCLICK().getText())){
+           if(getValueSymbolTable(ctx.CHARS_ONCLICK().getText()).equals(ID)){
+               dot_onClick.setName_variables(ctx.CHARS_ONCLICK().getText());
+           }else{
+               errors.push("The " + ctx.CHARS_ONCLICK().getText() + "is not initialize to getData!!");
+           }
+       }else {
+           errors.push("The " + ctx.CHARS_ONCLICK().getText() + "is not defined!!");
+       }
+       if(ctx.attrbuite_onclick()!=null){
+       dot_onClick.setAttribuite_onClick(visitAttrbuite_onclick(ctx.attrbuite_onclick()));
+       }
+       return dot_onClick;
+    }
+
+    @Override
+    public Size_OnClick visitSize_onClick(PARSER.Size_onClickContext ctx) {
+        Size_OnClick size_onClick = new Size_OnClick();
+        if(!cheak_multiple_defined_names(ctx.CHARS_INNERONCLICK().getText())){
+            if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
+                size_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
+            }else{
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+            }
+        }else {
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+        }
+        size_onClick.setValue_variable(ctx.SIZES_INNERONCLICK().getText());
+        return size_onClick;
+    }
+
+    @Override
+    public Height_OnClick visitHeight_onClick(PARSER.Height_onClickContext ctx) {
+        Height_OnClick height_onClick = new Height_OnClick();
+        if(!cheak_multiple_defined_names(ctx.CHARS_INNERONCLICK().getText())){
+            if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
+                height_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
+            }else{
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+            }
+        }else {
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+        }
+        height_onClick.setValue_variable(ctx.SIZES_INNERONCLICK().getText());
+        return height_onClick;
+    }
+
+    @Override
+    public background_OnClick visitBackground_onClick(PARSER.Background_onClickContext ctx) {
+     background_OnClick background_onClick = new background_OnClick();
+        if(!cheak_multiple_defined_names(ctx.CHARS_INNERONCLICK().getText())){
+            if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
+                background_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
+            }else{
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+            }
+        }else {
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+        }
+     background_onClick.setValue_variable(ctx.COLORS_INNERONCLICK().getText());
+     return background_onClick;
+    }
+
+    @Override
+    public Color_onClick visitColor_onClick(PARSER.Color_onClickContext ctx) {
+        Color_onClick color_onClick = new Color_onClick();
+        if(!cheak_multiple_defined_names(ctx.CHARS_INNERONCLICK().getText())){
+            if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
+                color_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
+            }else{
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+            }
+        }else {
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+        }
+        color_onClick.setValue_variable(ctx.COLORS_INNERONCLICK().getText());
+        return color_onClick;
+    }
+
+    @Override
+    public Content_onClick visitContent_onClick(PARSER.Content_onClickContext ctx) {
+        Content_onClick content_onClick = new Content_onClick();
+        if(!cheak_multiple_defined_names(ctx.CHARS_INNERONCLICK(0).getText())){
+            if(getValueSymbolTable(ctx.CHARS_INNERONCLICK(0).getText()).equals(ID)){
+                content_onClick.setName_variable(ctx.CHARS_INNERONCLICK(0).getText());
+            }else{
+                errors.push("The " + ctx.CHARS_INNERONCLICK(0).getText() + "is not initialize to getData!!");
+            }
+        }else {
+            errors.push("The " + ctx.CHARS_INNERONCLICK(0).getText() + "is not defined!!");
+        }
+        content_onClick.setValue_variable(ctx.CHARS_INNERONCLICK(1).getText());
+        return content_onClick;
+    }
+
+    @Override
+    public Width_OnClick visitWidth_onClick(PARSER.Width_onClickContext ctx) {
+        Width_OnClick widthOnClick = new Width_OnClick();
+        if(!cheak_multiple_defined_names(ctx.CHARS_INNERONCLICK().getText())){
+            if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
+                widthOnClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
+            }else{
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+            }
+        }else {
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+        }
+        widthOnClick.setValue_variable(ctx.SIZES_INNERONCLICK().getText());
+        return widthOnClick;
+    }
+    @Override
+    public Attribuite_OnClick visitAttrbuite_onclick(PARSER.Attrbuite_onclickContext ctx) {
+    Attribuite_OnClick attribuite_onClick = new Attribuite_OnClick();
+    if(ctx.content_onClick()!=null){
+     ArrayList<Content_onClick>content_onClicks = new ArrayList<>();
+     for(int i = 0 ;i < ctx.content_onClick().size();i++){
+       content_onClicks.add(visitContent_onClick(ctx.content_onClick(i)));
+     }
+     attribuite_onClick.setContent_onClicks(content_onClicks);
+    }
+    if(ctx.color_onClick()!=null){
+        ArrayList<Color_onClick>color_onClicks = new ArrayList<>();
+        for(int i = 0 ;i < ctx.color_onClick().size();i++){
+            color_onClicks.add(visitColor_onClick(ctx.color_onClick(i)));
+        }
+        attribuite_onClick.setColor_onClicks(color_onClicks);
+    }
+    if(ctx.background_onClick()!=null){
+        ArrayList<background_OnClick>background_onClicks = new ArrayList<>();
+        for(int i = 0 ;i < ctx.background_onClick().size();i++){
+            background_onClicks.add(visitBackground_onClick(ctx.background_onClick(i)));
+        }
+        attribuite_onClick.setBackground_onClicks(background_onClicks);
+    }
+    if(ctx.size_onClick()!=null){
+        ArrayList<Size_OnClick>size_onClicks = new ArrayList<>();
+        for(int i = 0 ;i < ctx.size_onClick().size();i++){
+            size_onClicks.add(visitSize_onClick(ctx.size_onClick(i)));
+        }
+        attribuite_onClick.setSize_onClicks(size_onClicks);
+    }
+    if(ctx.width_onClick()!=null){
+        ArrayList<Width_OnClick>width_onClicks = new ArrayList<>();
+        for(int i = 0 ;i < ctx.width_onClick().size();i++){
+            width_onClicks.add(visitWidth_onClick(ctx.width_onClick(i)));
+        }
+        attribuite_onClick.setWidth_onClicks(width_onClicks);
+    }
+    if(ctx.height_onClick()!=null){
+        ArrayList<Height_OnClick>height_onClicks = new ArrayList<>();
+        for(int i = 0 ;i < ctx.height_onClick().size();i++){
+            height_onClicks.add(visitHeight_onClick(ctx.height_onClick(i)));
+        }
+        attribuite_onClick.setHeight_onClicks(height_onClicks);
+    }
+    return attribuite_onClick;
+    }
+
 
     static HashMap<String ,String> symbol_table = new HashMap<>();
     static Stack<String> errors = new Stack<>();
@@ -98,8 +324,13 @@ public class BaseVisitor extends PARSERBaseVisitor {
     }
     public boolean cheak_multiple_defined_names(String data){
         if(symbol_table.containsKey(data))
+        {
             return false;
+        }
         return true;
+    }
+    public String getValueSymbolTable(String key){
+        return symbol_table.get(key);
     }
     @Override
     public String visitHeaderurl(PARSER.HeaderurlContext ctx)
@@ -176,6 +407,8 @@ public class BaseVisitor extends PARSERBaseVisitor {
         }else if (ctx.textinput()!=null) {
             id_text_input++;
             attribuite_body.setTextInput(visitTextinput(ctx.textinput()));
+        }else if (ctx.onclick()!=null){
+           attribuite_body.setOnClick(visitOnclick(ctx.onclick()));
         }
         return attribuite_body;
     }

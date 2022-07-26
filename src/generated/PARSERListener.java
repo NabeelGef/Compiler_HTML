@@ -117,6 +117,116 @@ public interface PARSERListener extends ParseTreeListener {
 	 */
 	void exitAttribute_body(PARSER.Attribute_bodyContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PARSER#onclick}.
+	 * @param ctx the parse tree
+	 */
+	void enterOnclick(PARSER.OnclickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#onclick}.
+	 * @param ctx the parse tree
+	 */
+	void exitOnclick(PARSER.OnclickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#getData}.
+	 * @param ctx the parse tree
+	 */
+	void enterGetData(PARSER.GetDataContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#getData}.
+	 * @param ctx the parse tree
+	 */
+	void exitGetData(PARSER.GetDataContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#equalization}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualization(PARSER.EqualizationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#equalization}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualization(PARSER.EqualizationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#dot_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterDot_onClick(PARSER.Dot_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#dot_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitDot_onClick(PARSER.Dot_onClickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#attrbuite_onclick}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttrbuite_onclick(PARSER.Attrbuite_onclickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#attrbuite_onclick}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttrbuite_onclick(PARSER.Attrbuite_onclickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#size_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterSize_onClick(PARSER.Size_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#size_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitSize_onClick(PARSER.Size_onClickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#height_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeight_onClick(PARSER.Height_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#height_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeight_onClick(PARSER.Height_onClickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#background_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterBackground_onClick(PARSER.Background_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#background_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitBackground_onClick(PARSER.Background_onClickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#color_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterColor_onClick(PARSER.Color_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#color_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitColor_onClick(PARSER.Color_onClickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#content_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterContent_onClick(PARSER.Content_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#content_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitContent_onClick(PARSER.Content_onClickContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PARSER#width_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void enterWidth_onClick(PARSER.Width_onClickContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#width_onClick}.
+	 * @param ctx the parse tree
+	 */
+	void exitWidth_onClick(PARSER.Width_onClickContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PARSER#text}.
 	 * @param ctx the parse tree
 	 */

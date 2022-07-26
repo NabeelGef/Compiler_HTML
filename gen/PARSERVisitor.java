@@ -76,6 +76,72 @@ public interface PARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttribute_body(PARSER.Attribute_bodyContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PARSER#onclick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnclick(PARSER.OnclickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#getData}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGetData(PARSER.GetDataContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#equalization}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualization(PARSER.EqualizationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#dot_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDot_onClick(PARSER.Dot_onClickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#attrbuite_onclick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttrbuite_onclick(PARSER.Attrbuite_onclickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#size_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSize_onClick(PARSER.Size_onClickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#height_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeight_onClick(PARSER.Height_onClickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#background_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBackground_onClick(PARSER.Background_onClickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#color_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColor_onClick(PARSER.Color_onClickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#content_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContent_onClick(PARSER.Content_onClickContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PARSER#width_onClick}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWidth_onClick(PARSER.Width_onClickContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PARSER#text}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

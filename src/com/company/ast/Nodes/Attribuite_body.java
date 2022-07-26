@@ -4,6 +4,15 @@ public class Attribuite_body {
     Button button;
     Text text;
     TextInput textInput;
+    OnClick onClick;
+
+    public OnClick getOnClick() {
+        return onClick;
+    }
+
+    public void setOnClick(OnClick onClick) {
+        this.onClick = onClick;
+    }
 
     public Button getButton() {
         return button;

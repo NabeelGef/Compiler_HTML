@@ -36,6 +36,7 @@ body{
        Bottom : '150px'
        },
        Event {
+
        go_to : '/test.html'
        }
        },
@@ -53,6 +54,24 @@ body{
                    Top : '12px',
                    Bottom : '20px'
                   },
+            },
+       OnClick{
+              text = getData('myText2');
+              ID2 = 'myButton';
+              ID3 = 'myButton2';
+              button = getData(ID3);
+              button = getData(ID2);
+              button.onClick(){
+              text.Color = 'Red',
+              text.Content = 'Hi',
+              text.Background = 'Blue',
+              text.Size = '15px',
+              button.Height = '150px',
+              button.Width = '150dp',
+              button.Background = 'Blue',
+              button.Content = 'Hi',
+              button.Color = 'Green',
+              };
             }
 };
 
