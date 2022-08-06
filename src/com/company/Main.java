@@ -20,9 +20,10 @@ import java.util.Locale;
 
 import com.company.ast.Nodes.*;
 import static org.antlr.v4.runtime.CharStreams.fromFileName;
+import static org.antlr.v4.runtime.CharStreams.fromStream;
 
 public class Main {
-
+    static final String PATH_MATH = "C:\\xampp\\htdocs\\code_math/";
     public static void main(String[] args) throws IOException, ParseException {
         String source = "C:\\Users\\maher\\Desktop\\algorithm\\Samples//sample.txt";
         CharStream charStream = fromFileName(source);
@@ -40,7 +41,7 @@ public class Main {
             String Color = program.getHeader().getAttribuite_headerList().get(i).getColor();
             String Pos = program.getHeader().getAttribuite_headerList().get(i).getPos();
             String Size = program.getHeader().getAttribuite_headerList().get(i).getSize();
-            String Url = program.getHeader().getAttribuite_headerList().get(i).getUrl();
+            String Url = PATH_MATH + program.getHeader().getAttribuite_headerList().get(i).getUrl();
             String Url_control = program.getHeader().getAttribuite_headerList().get(i).getUrl_control();
             if (Color != null) {
                 System.out.println("Color : " + Color);
@@ -370,7 +371,6 @@ public class Main {
                 String input_hint = null;
                 // TextInput textInput = program.getBody().getAttribuite_bodies().get(i).getTextInput();
                 if (text != null) {
-                    System.out.println("\t\t***TexT***");
                     for (int j = 0; j < text.getAttribuite_text().size(); j++) {
                         String Temp_Color = text.getAttribuite_text().get(j).getColor();
                         String Temp_Content = text.getAttribuite_text().get(j).getContent();
@@ -452,7 +452,6 @@ public class Main {
                         }else if(Pos!=null){
                             text_pos=Pos;
                         } else if(margin!=null){
-                            System.out.println("\t***Margin Button***");
                             for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
                                 String Right = null, Left = null, Top = null, Bottom = null;
                                 if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
@@ -474,7 +473,6 @@ public class Main {
                                     text_margin_bottom = margin.getAttribuite_margins().get(k).getSizes();
                             }
                         }else if (event!=null){
-                            System.out.println("\t***Event***");
                             for(int l = 0 ;l<event.getAttribuite_event().size();l++){
                                 String Go_to = event.getAttribuite_event().get(l).getGo_to();
                                 if(Go_to!=null){
@@ -590,8 +588,8 @@ public class Main {
             return;
     }
         HashMap<String,String> symbol_table = BaseVisitor.getSymbol_table();
-                String url = symbol_table.get("Url");
-                String url_control = symbol_table.get("Url_control");
+                String url = PATH_MATH + symbol_table.get("Url");
+                String url_control = PATH_MATH + symbol_table.get("Url_control");
                 if(url!=null){
                     File Furl = new File(url).getAbsoluteFile();
                     if(!Furl.exists()){

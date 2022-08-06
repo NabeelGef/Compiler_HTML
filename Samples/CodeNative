@@ -3,7 +3,7 @@ header {
 Color : 'Yellow',
 Title :'project',
 Size : '50px',
-url : 'C:\Users\maher\Desktop/compiler.html',
+url : 'C:\Users\maher\Desktop/my_generete_code_math.html',
 url_control :'test2.php',
 Pos : center,
 };
@@ -22,7 +22,6 @@ body{
                Pos : center,
                Id : 'myText_2'
               },
-
        Button {
        Width : '520px',
        Height : '120px',
@@ -56,21 +55,20 @@ body{
                   },
             },
        OnClick{
-              text = getData('myText2');
-              ID2 = 'myButton';
-              ID3 = 'myButton2';
-              button = getData(ID3);
-              button = getData(ID2);
-              button.onClick(){
-              text.Color = 'Red',
-              text.Content = 'Hi',
-              text.Background = 'Blue',
-              text.Size = '15px',
-              button.Height = '150px',
-              button.Width = '150dp',
-              button.Background = 'Blue',
-              button.Content = 'Hi',
-              button.Color = 'Green',
+              text = 'myText2';
+              txt = getData(text);
+              btn2 = getData('ChangingBackground');
+              btn = getData('ChangingColor');
+              btn.onClick(){
+              txt.Color = 'Red',
+              txt.Content = 'Hi',
+              txt.Background = 'Blue',
+              txt.Size = '15px',
+              btn.Height = '150px',
+              btn.Width = '150dp',
+              btn.Background = 'Blue',
+              btn.Content = 'Hi',
+              btn.Color = 'Green',
               };
             }
 };

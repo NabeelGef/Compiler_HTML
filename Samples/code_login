@@ -3,7 +3,7 @@ header {
 Color : 'Red',
 Title :'project',
 Size : '50px',
-url : 'C:\xampp\htdocs\code_math/my_generete_code_math.html',
+url : 'my_generate_code_math.html',
 Pos : center,
 };
 body{
