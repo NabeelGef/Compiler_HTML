@@ -32,7 +32,7 @@ body{
        Width : '50px',
        Height : '50px',
        Color : 'Blue',
-       Id : 'add',
+       Id : 'ChangingColor',
        TextButton : 'enter ',
        Margin {
        Left : '450px',
@@ -44,18 +44,18 @@ body{
        },
        OnClick{
               text = 'myText2';
-              txt = getData(text);
+              txt = getData('myText2');
               btn2 = getData('ChangingBackground');
               btn = getData('ChangingColor');
               btn.onClick(){
               txt.Color = 'Red',
-              txt.Content = 'Hi',
+              txt.Content = 'salmon',
               txt.Background = 'Blue',
               txt.Size = '15px',
               btn.Height = '150px',
               btn.Width = '150dp',
               btn.Background = 'Blue',
-              btn.Content = 'Hi',
+              btn.Content = 'click here ',
               btn.Color = 'Green',
               };
             }
