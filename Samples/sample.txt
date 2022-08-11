@@ -3,61 +3,20 @@ header {
 Color : 'Red',
 Title :'project math',
 Size : '50px',
+Pos : center,
 url : 'my_generate_code_math.html',
 url_control :'my_generate_code_math.php',
-Pos : center,
 };
-body{
-   TextInput {
-        Width : '220px',
-        Height : '12px',
-        Color : 'Blue',
-        Id : 'num1',
-        Type : numbers,
-        TextHint : 'number1',
-        Margin {
-        Top : '100px',
-        }
-       },
-       TextInput {
-               Color : 'Blue',
-               Id : 'num2',
-               Type : numbers,
-               TextHint : 'number2',
-             Margin {
-                    Top : '100px',
-                    }
-              },
-       Button {
-       Width : '50px',
-       Height : '50px',
-       Color : 'Blue',
-       Id : 'ChangingColor',
-       TextButton : 'enter ',
-       Margin {
-       Left : '450px',
-       Top : '100px',
-       },
-       Event {
-       go_to : '/test.html'
-       }
-       },
-       OnClick{
-              text = 'myText2';
-              txt = getData('myText2');
-              btn2 = getData('ChangingBackground');
-              btn = getData('ChangingColor');
-              btn.onClick(){
-              txt.Color = 'Red',
-              txt.Content = 'salmon',
-              txt.Background = 'Blue',
-              txt.Size = '15px',
-              btn.Height = '150px',
-              btn.Width = '150dp',
-              btn.Background = 'Blue',
-              btn.Content = 'click here ',
-              btn.Color = 'Green',
-              };
-            }
+body {
+          Text {
+                Content : 'Hello World',
+                Color : 'Red',
+                Id : 'txt',
+                Size : '40px',
+                Margin  {
+                Top : '100px',
+                Left : '150px'
+                }
+               }
 };
 

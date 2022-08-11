@@ -127,6 +127,16 @@ public interface PARSERListener extends ParseTreeListener {
 	 */
 	void exitOnclick(PARSER.OnclickContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PARSER#attrbuite_onclickparent}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PARSER#attrbuite_onclickparent}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PARSER#getData}.
 	 * @param ctx the parse tree
 	 */

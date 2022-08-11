@@ -12,36 +12,65 @@ import java.util.*;
 
 public class BaseVisitor extends PARSERBaseVisitor {
     private static final String ID = "GETDATA";
+
+    static HashMap<String ,String> symbol_table = new HashMap<>();
+    static Stack<String> errors = new Stack<>();
+
+    public static HashMap<String, String> getSymbol_table() {
+        return symbol_table;
+    }
+    public String getValueSymbolTable(String key){
+        return symbol_table.get(key);
+    }
+
+    public static Stack<String> getErrors() {
+        return errors;
+    }
+    public boolean cheak_multiple_defined_names(String data){
+         if(symbol_table.containsKey(data))
+        {
+            return false;
+        }
+        return true;
+    }
+    private boolean isNumber(String data){
+        try {
+            double d = Double.parseDouble(data);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Attribuite_OnClickParent visitAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx) {
+       Attribuite_OnClickParent attribuite_onClickParent = new Attribuite_OnClickParent();
+       if(ctx.equalization()!=null){
+          attribuite_onClickParent.setEqualizaition(visitEqualization(ctx.equalization()));
+       }
+       else if(ctx.getData()!=null){
+      attribuite_onClickParent.setGetData(visitGetData(ctx.getData()));
+       }
+       else if (ctx.dot_onClick()!=null){
+           attribuite_onClickParent.setDot_onClick(visitDot_onClick(ctx.dot_onClick()));
+       }
+       return attribuite_onClickParent;
+    }
+
     @Override
     public OnClick visitOnclick(PARSER.OnclickContext ctx) {
     OnClick onclick = new OnClick();
-    if(ctx.equalization()!=null){
-        ArrayList<Equalizaition>equalizaitions = new ArrayList<>();
-        for(int i = 0;i<ctx.equalization().size();i++){
-            equalizaitions.add(visitEqualization(ctx.equalization(i)));
-        }
-        onclick.setEqualizaitions(equalizaitions);
+    ArrayList<Attribuite_OnClickParent> attribuite_onClickParent = new ArrayList<>();
+    for(int i = 0 ;i < ctx.attrbuite_onclickparent().size();i++){
+              attribuite_onClickParent.add(visitAttrbuite_onclickparent(ctx.attrbuite_onclickparent().get(i)));
     }
-        if(ctx.getData()!=null){
-            ArrayList<getData> getData = new ArrayList<>();
-            for(int i = 0 ;i < ctx.getData().size();i++){
-                getData.add(visitGetData(ctx.getData(i)));
-            }
-            onclick.setGetData(getData);
-        }
-    if(ctx.dot_onClick()!=null){
-        ArrayList<Dot_OnClick>dot_onClicks = new ArrayList<>();
-        for(int i = 0;i<ctx.dot_onClick().size();i++){
-            dot_onClicks.add(visitDot_onClick(ctx.dot_onClick(i)));
-        }
-        onclick.setDot_onClicks(dot_onClicks);
-    }
+    onclick.setAttribuite_onClickParents(attribuite_onClickParent);
     return  onclick;
     }
 
     @Override
-    public getData visitGetData(PARSER.GetDataContext ctx) {
-        getData getsData = new getData();
+    public GetData visitGetData(PARSER.GetDataContext ctx) {
+        GetData getsData = new GetData();
         getsData.setName_variables(ctx.CHARS_ONCLICK(0).getText());
         getsData.setValue_variables(ctx.CHARS_ONCLICK(1).getText());
         symbol_table.put(ctx.CHARS_ONCLICK(0).getText(),ID);
@@ -58,21 +87,16 @@ public class BaseVisitor extends PARSERBaseVisitor {
         Equalizaition equalizaition = new Equalizaition();
         equalizaition.setName_variables(ctx.CHARS_ONCLICK(0).getText());
         equalizaition.setValue_variables(ctx.CHARS_ONCLICK(1).getText());
-        if(!cheak_multiple_defined_names(ctx.CHARS_ONCLICK(0).getText())){
-            errors.push("The " + ctx.CHARS_ONCLICK(0).getText() + " is Defined already!!");
-        }else
-        {
-            if(ctx.SINGLE_QUOTE_ONCLICK()!=null){
+            if(ctx.SINGLE_QUOTE_ONCLICK().size()>0||isNumber(ctx.CHARS_ONCLICK(1).getText())){
                 symbol_table.put(ctx.CHARS_ONCLICK(0).getText(),ctx.CHARS_ONCLICK(1).getText());
             }else{
                 if(cheak_multiple_defined_names(ctx.CHARS_ONCLICK(1).getText())){
-                    errors.push("The " + ctx.CHARS_ONCLICK(1).getText() + "is not defined!!");
+                    errors.push("The " + ctx.CHARS_ONCLICK(1).getText() + " is not defined!!");
                 }
                 else{
                     symbol_table.put(ctx.CHARS_ONCLICK(0).getText(),ctx.CHARS_ONCLICK(1).getText());
                 }
             }
-        }
         return equalizaition;
     }
 
@@ -83,10 +107,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
            if(getValueSymbolTable(ctx.CHARS_ONCLICK().getText()).equals(ID)){
                dot_onClick.setName_variables(ctx.CHARS_ONCLICK().getText());
            }else{
-               errors.push("The " + ctx.CHARS_ONCLICK().getText() + "is not initialize to getData!!");
+               errors.push("The " + ctx.CHARS_ONCLICK().getText() + " is not initialize to getData!!");
            }
        }else {
-           errors.push("The " + ctx.CHARS_ONCLICK().getText() + "is not defined!!");
+           errors.push("The " + ctx.CHARS_ONCLICK().getText() + " is not defined!!");
        }
        if(ctx.attrbuite_onclick()!=null){
        dot_onClick.setAttribuite_onClick(visitAttrbuite_onclick(ctx.attrbuite_onclick()));
@@ -101,10 +125,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
             if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
                 size_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
             }else{
-                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not initialize to getData!!");
             }
         }else {
-            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not defined!!");
         }
         size_onClick.setValue_variable(ctx.SIZES_INNERONCLICK().getText());
         return size_onClick;
@@ -117,10 +141,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
             if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
                 height_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
             }else{
-                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not initialize to getData!!");
             }
         }else {
-            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not defined!!");
         }
         height_onClick.setValue_variable(ctx.SIZES_INNERONCLICK().getText());
         return height_onClick;
@@ -133,10 +157,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
             if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
                 background_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
             }else{
-                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not initialize to getData!!");
             }
         }else {
-            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not defined!!");
         }
      background_onClick.setValue_variable(ctx.COLORS_INNERONCLICK().getText());
      return background_onClick;
@@ -149,10 +173,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
             if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
                 color_onClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
             }else{
-                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not initialize to getData!!");
             }
         }else {
-            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not defined!!");
         }
         color_onClick.setValue_variable(ctx.COLORS_INNERONCLICK().getText());
         return color_onClick;
@@ -165,10 +189,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
             if(getValueSymbolTable(ctx.CHARS_INNERONCLICK(0).getText()).equals(ID)){
                 content_onClick.setName_variable(ctx.CHARS_INNERONCLICK(0).getText());
             }else{
-                errors.push("The " + ctx.CHARS_INNERONCLICK(0).getText() + "is not initialize to getData!!");
+                errors.push("The " + ctx.CHARS_INNERONCLICK(0).getText() + " is not initialize to getData!!");
             }
         }else {
-            errors.push("The " + ctx.CHARS_INNERONCLICK(0).getText() + "is not defined!!");
+            errors.push("The " + ctx.CHARS_INNERONCLICK(0).getText() + " is not defined!!");
         }
         content_onClick.setValue_variable(ctx.CHARS_INNERONCLICK(1).getText());
         return content_onClick;
@@ -181,10 +205,10 @@ public class BaseVisitor extends PARSERBaseVisitor {
             if(getValueSymbolTable(ctx.CHARS_INNERONCLICK().getText()).equals(ID)){
                 widthOnClick.setName_variable(ctx.CHARS_INNERONCLICK().getText());
             }else{
-                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not initialize to getData!!");
+                errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not initialize to getData!!");
             }
         }else {
-            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + "is not defined!!");
+            errors.push("The " + ctx.CHARS_INNERONCLICK().getText() + " is not defined!!");
         }
         widthOnClick.setValue_variable(ctx.SIZES_INNERONCLICK().getText());
         return widthOnClick;
@@ -237,17 +261,6 @@ public class BaseVisitor extends PARSERBaseVisitor {
     return attribuite_onClick;
     }
 
-
-    static HashMap<String ,String> symbol_table = new HashMap<>();
-    static Stack<String> errors = new Stack<>();
-
-    public static HashMap<String, String> getSymbol_table() {
-        return symbol_table;
-    }
-
-    public static Stack<String> getErrors() {
-        return errors;
-    }
 
     @Override
     public Program visitProgram(PARSER.ProgramContext ctx) {
@@ -322,16 +335,7 @@ public class BaseVisitor extends PARSERBaseVisitor {
         }
         return attribuite_header;
     }
-    public boolean cheak_multiple_defined_names(String data){
-        if(symbol_table.containsKey(data))
-        {
-            return false;
-        }
-        return true;
-    }
-    public String getValueSymbolTable(String key){
-        return symbol_table.get(key);
-    }
+
     @Override
     public String visitHeaderurl(PARSER.HeaderurlContext ctx)
     {

@@ -1,6 +1,6 @@
 package com.company.ast.Nodes;
 
-public class getData {
+public class GetData {
     String name_variables , value_variables ;
 
     public String getName_variables() {

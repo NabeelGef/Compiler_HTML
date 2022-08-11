@@ -159,6 +159,18 @@ public class PARSERBaseListener implements PARSERListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterGetData(PARSER.GetDataContext ctx) { }
 	/**
 	 * {@inheritDoc}

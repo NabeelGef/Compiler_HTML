@@ -100,6 +100,13 @@ public class PARSERBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitGetData(PARSER.GetDataContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

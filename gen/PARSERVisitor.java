@@ -82,6 +82,12 @@ public interface PARSERVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOnclick(PARSER.OnclickContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PARSER#attrbuite_onclickparent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttrbuite_onclickparent(PARSER.Attrbuite_onclickparentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PARSER#getData}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

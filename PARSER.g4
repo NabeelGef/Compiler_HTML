@@ -23,7 +23,8 @@ attribute_body: text | textinput | button | onclick;
 
 
 ////////
-onclick : ON_CLICK CURLYOPEN_ONCLICK (getData | equalization | dot_onClick)* CURLYCLOSE_ONCLICK;
+onclick : ON_CLICK CURLYOPEN_ONCLICK attrbuite_onclickparent* CURLYCLOSE_ONCLICK;
+attrbuite_onclickparent : getData | equalization | dot_onClick;
 getData : CHARS_ONCLICK EQUAL_ONCLICK GET_DATA OPEN_GETDATA
 ((SINGLE_QUOTE_ONCLICK CHARS_ONCLICK SINGLE_QUOTE_ONCLICK )|(CHARS_ONCLICK)) CLOSE_GETDATA SEMICOLON_ONCLICK;
 equalization : CHARS_ONCLICK EQUAL_ONCLICK ((SINGLE_QUOTE_ONCLICK CHARS_ONCLICK SINGLE_QUOTE_ONCLICK )|(CHARS_ONCLICK)) SEMICOLON_ONCLICK;
