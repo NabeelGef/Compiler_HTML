@@ -1,22 +1,113 @@
 <start>
 header {
-Color : 'Red',
-Title :'project math',
-Size : '50px',
-Pos : center,
+Title :'Compiler Project',
+Color : 'Black',
+Size : '40px',
 url : 'my_generate_code_math.html',
 url_control :'my_generate_code_math.php',
+Pos : center,
 };
-body {
-          Text {
-                Content : 'Hello World',
-                Color : 'Red',
-                Id : 'txt',
-                Size : '40px',
-                Margin  {
-                Top : '100px',
-                Left : '150px'
+body{
+   Text {
+          Color : 'Red',
+          Size : '25px',
+          Content : 'calculation operations',
+          Pos : center,
+          Id : 'myText'
+         },
+   TextInput{
+       Width : '250px',
+       Height : '30px',
+       Color : 'Black',
+       Background : 'White',
+       Id : 'num1',
+       TextHint : 'number 1',
+       Pos : center,
+       Type : numbers,
+       Margin {
+               Left : '0px',
+               Top : '100px'
+              }
+        },
+TextInput{
+      Width : '250px',
+      Height : '30px',
+      Color : 'Black',
+      Background : 'White',
+      Id : 'num2',
+      TextHint : 'number 2',
+      Pos : center,
+      Type :  numbers,
+      Margin {
+               Left : '0px',
+               Top : '30px'
                 }
-               }
-};
+         },
+            Button {
+                 Width : '150px',
+                 Height : '30px',
+                 Color : 'White',
+                 TextButton : 'Add',
+                 Pos : center,
+                 Background : 'Black',
+                 Id : 'add',
+                 Margin {
+                    Left : '0px',
+                    Top : '50px',
+                   },
+                    Event {
+                              go_to : 'my_generate_code_math_add.php',
+                              },
+             },
 
+    Button {
+         Width : '150px',
+         Height : '30px',
+         Color : 'White',
+         TextButton : 'Subtract',
+         Pos : center,
+         Background : 'Black',
+         Id : 'subtract',
+         Margin {
+            Left : '0px',
+            Top : '50px',
+           },
+           Event {
+               go_to : 'my_generate_code_math_subtract.php',
+                  },
+
+     },
+      Button {
+           Width : '150px',
+           Height : '30px',
+           Color : 'White',
+           TextButton : 'Multiply',
+           Pos : center,
+           Background : 'Black',
+           Id : 'multiply',
+           Margin {
+              Left : '0px',
+              Top : '50px',
+             },
+             Event {
+                 go_to : 'my_generate_code_math_multiply.php',
+                         },
+
+       },
+        Button {
+             Width : '150px',
+             Height : '35px',
+             Color : 'White',
+             TextButton : 'division',
+             Pos : center,
+             Background : 'Black',
+             Id : 'division',
+             Margin {
+                Left : '0px',
+                Top : '50px',
+               },
+               Event {
+                   go_to : 'my_generate_code_math_division.php',
+                          },
+                          }
+                          };

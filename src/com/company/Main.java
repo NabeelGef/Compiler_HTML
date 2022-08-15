@@ -8,21 +8,18 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.util.*;
 import java.util.HashMap;
-import java.io.FileWriter;
 
 import static org.antlr.v4.runtime.CharStreams.fromFileName;
 import static org.antlr.v4.runtime.CharStreams.fromStream;
 
 public class Main {
-    static final String PATH_MATH = "C:\\xampp\\htdocs\\code_math/";
+    static final String PATH_MATH = "C:\\xampp\\htdocs\\code_login/";
     public static void main(String[] args) throws IOException, ParseException {
-        String source = "C:\\Users\\maher\\Desktop\\algorithm\\Samples//sample.txt";
+        String source = "C:\\Users\\hp\\IdeaProjects\\Compiler_HTML\\Samples//sample.txt";
         CharStream charStream = fromFileName(source);
         LEXER lexer = new LEXER(charStream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
@@ -48,40 +45,38 @@ public class Main {
 
         return false;
     }
-
-
     private static void generateAst(Program program) throws IOException {
-        System.out.println("\t\t\t*******Header*******");
+        System.out.println("Header");
         for (int i = 0; i < program.getHeader().getAttribuite_headerList().size(); i++) {
             String Title = program.getHeader().getAttribuite_headerList().get(i).getTitle();
             String Color = program.getHeader().getAttribuite_headerList().get(i).getColor();
             String Pos = program.getHeader().getAttribuite_headerList().get(i).getPos();
             String Size = program.getHeader().getAttribuite_headerList().get(i).getSize();
-            String Url = PATH_MATH + program.getHeader().getAttribuite_headerList().get(i).getUrl();
+            String Url = program.getHeader().getAttribuite_headerList().get(i).getUrl();
             String Url_control = program.getHeader().getAttribuite_headerList().get(i).getUrl_control();
             if (Color != null) {
-                System.out.println("Color : " + Color);
+                System.out.println("\t\t\tColor : " + Color);
             } else if (Size != null) {
-                System.out.println("Size : " + Size);
+                System.out.println("\t\t\tSize : " + Size);
             } else if (Pos != null) {
-                System.out.println("Pos : " + Pos);
+                System.out.println("\t\t\tPos : " + Pos);
             } else if (Url != null) {
-                System.out.println("URL : " + Url);
-                generateCode(program, Url);
+                System.out.println("\t\t\tURL : " +PATH_MATH+Url);
+                generateCode(program,PATH_MATH+Url);
             } else if (Title != null) {
-                System.out.println("Title : " + Title);
+                System.out.println("\t\t\tTitle : " + Title);
             } else if (Url_control != null) {
-                System.out.println("Url_controller : " + Url_control);
+                System.out.println("\t\t\tUrl_controller : " +PATH_MATH+Url_control);
             }
         }
-        System.out.println("\n\n\n\t\t\t********Body******");
+        System.out.println("Body");
         for (int i = 0; i < program.getBody().getAttribuite_bodies().size(); i++) {
             Text text = program.getBody().getAttribuite_bodies().get(i).getText();
             Button button = program.getBody().getAttribuite_bodies().get(i).getButton();
             TextInput textInput = program.getBody().getAttribuite_bodies().get(i).getTextInput();
             OnClick onClick = program.getBody().getAttribuite_bodies().get(i).getOnClick();
             if (text != null) {
-                System.out.println("\t\t***TexT***");
+                System.out.println("\t\tTexT");
                 for (int j = 0; j < text.getAttribuite_text().size(); j++) {
                     String Color = text.getAttribuite_text().get(j).getColor();
                     String Content = text.getAttribuite_text().get(j).getContent();
@@ -90,17 +85,17 @@ public class Main {
                     String Pos = text.getAttribuite_text().get(j).getPos();
                     Margin margin = text.getAttribuite_text().get(j).getMargin();
                     if (Color != null) {
-                        System.out.println("Color : " + Color);
+                        System.out.println("\t\t\t\tColor : " + Color);
                     } else if (Content != null) {
-                        System.out.println("Content : " + Content);
+                        System.out.println("\t\t\t\tContent : " + Content);
                     } else if (Size != null) {
-                        System.out.println("Size : " + Size);
+                        System.out.println("\t\t\t\tSize : " + Size);
                     } else if (ID != null) {
-                        System.out.println("ID  : " + ID);
+                        System.out.println("\t\t\t\tID  : " + ID);
                     } else if (Pos != null) {
-                        System.out.println("Pos : " + Pos);
+                        System.out.println("\t\t\t\tPos : " + Pos);
                     } else if (margin != null) {
-                        System.out.println("\t***MARGIN TexT***");
+                        System.out.println("\t\t\t\tMARGIN TexT");
                         for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
                             String Right = null, Left = null, Top = null, Bottom = null;
                             if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
@@ -113,18 +108,18 @@ public class Main {
                                 Bottom = margin.getAttribuite_margins().get(k).getLocation();
                             }
                             if (Right != null) {
-                                System.out.println("Right : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tRight : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Left != null) {
-                                System.out.println("Left : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tLeft : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Top != null) {
-                                System.out.println("Top : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tTop : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Bottom != null)
-                                System.out.println("Bottom : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tBottom : " + margin.getAttribuite_margins().get(k).getSizes());
                         }
                     }
                 }
             } else if (button != null) {
-                System.out.println("\t\t***Button***");
+                System.out.println("\t\tButton");
                 for (int j = 0; j < button.getAttribuite_button().size(); j++) {
                     String Width = button.getAttribuite_button().get(j).getWidth();
                     String Height = button.getAttribuite_button().get(j).getHeight();
@@ -136,21 +131,21 @@ public class Main {
                     Event event = button.getAttribuite_button().get(j).getEvent();
                     String Pos = button.getAttribuite_button().get(j).getPos();
                     if (Width != null) {
-                        System.out.println("Width : " + Width);
+                        System.out.println("\t\t\t\tWidth : " + Width);
                     } else if (Height != null) {
-                        System.out.println("Height : " + Height);
+                        System.out.println("\t\t\t\tHeight : " + Height);
                     } else if (Color != null) {
-                        System.out.println("Color : " + Color);
+                        System.out.println("\t\t\t\tColor : " + Color);
                     } else if (Background != null) {
-                        System.out.println("Background : " + Background);
+                        System.out.println("\t\t\t\tBackground : " + Background);
                     } else if (Pos != null) {
-                        System.out.println("Pos : " + Pos);
+                        System.out.println("\t\t\t\tPos : " + Pos);
                     } else if (ID != null) {
-                        System.out.println("ID : " + ID);
+                        System.out.println("\t\t\t\tID : " + ID);
                     } else if (TextButton != null) {
-                        System.out.println("Text Button : " + TextButton);
+                        System.out.println("\t\t\t\tText Button : " + TextButton);
                     } else if (margin != null) {
-                        System.out.println("\t***Margin Button***");
+                        System.out.println("\t\t\t\tMargin Button");
                         for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
                             String Right = null, Left = null, Top = null, Bottom = null;
                             if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
@@ -163,26 +158,26 @@ public class Main {
                                 Bottom = margin.getAttribuite_margins().get(k).getLocation();
                             }
                             if (Right != null) {
-                                System.out.println("Right : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tRight : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Left != null) {
-                                System.out.println("Left : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tLeft : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Top != null) {
-                                System.out.println("Top : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tTop : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Bottom != null)
-                                System.out.println("Bottom : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tBottom : " + margin.getAttribuite_margins().get(k).getSizes());
                         }
                     } else if (event != null) {
-                        System.out.println("\t***Event***");
+                        System.out.println("\t\t\t\tEvent");
                         for (int l = 0; l < event.getAttribuite_event().size(); l++) {
                             String Go_to = event.getAttribuite_event().get(l).getGo_to();
                             if (Go_to != null) {
-                                System.out.println("GO_To : " + Go_to);
+                                System.out.println("\t\t\t\t\t\tGO_To : " + Go_to);
                             }
                         }
                     }
                 }
             } else if (textInput != null) {
-                System.out.println("\t\t***TextInput***");
+                System.out.println("\t\tTextInput");
                 for (int j = 0; j < textInput.getAttribuite_textInput().size(); j++) {
                     String Width = textInput.getAttribuite_textInput().get(j).getWidth();
                     String Height = textInput.getAttribuite_textInput().get(j).getHeight();
@@ -194,23 +189,24 @@ public class Main {
                     Margin margin = textInput.getAttribuite_textInput().get(j).getMargin();
                     String Pos = textInput.getAttribuite_textInput().get(j).getPos();
                     if (Width != null) {
-                        System.out.println("Width : " + Width);
+                        System.out.println("\t\t\t\tWidth : " + Width);
                     } else if (Height != null) {
-                        System.out.println("Height : " + Height);
+                        System.out.println("\t\t\t\tHeight : " + Height);
                     } else if (Color != null) {
-                        System.out.println("Color : " + Color);
+                        System.out.println("\t\t\t\tColor : " + Color);
                     } else if (Background != null) {
-                        System.out.println("Background : " + Background);
+                        System.out.println("\t\t\t\tBackground : " + Background);
                     } else if (Pos != null) {
-                        System.out.println("Pos : " + Pos);
+                        System.out.println("\t\t\t\tPos : " + Pos);
                     } else if (ID != null) {
-                        System.out.println("ID : " + ID);
+                        System.out.println("\t\t\t\tID : " + ID);
                     } else if (TextHint != null) {
-                        System.out.println("Text Hint : " + TextHint);
+                        System.out.println("\t\t\t\tText Hint : " + TextHint);
                     } else if (Type != null) {
-                        System.out.println("Type : " + Type);
-                    } else if (margin != null) {
-                        System.out.println("\t***Margin Text Input***");
+                        System.out.println("\t\t\t\tType : " + Type);
+                    }
+                    else if (margin != null) {
+                        System.out.println("\t\t\t\tMargin Text Input");
                         for (int k = 0; k < margin.getAttribuite_margins().size(); k++) {
                             String Right = null, Left = null, Top = null, Bottom = null;
                             if (margin.getAttribuite_margins().get(k).getLocation().equals("Right")) {
@@ -223,39 +219,40 @@ public class Main {
                                 Bottom = margin.getAttribuite_margins().get(k).getLocation();
                             }
                             if (Right != null) {
-                                System.out.println("Right : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tRight : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Left != null) {
-                                System.out.println("Left : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tLeft : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Top != null) {
-                                System.out.println("Top : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tTop : " + margin.getAttribuite_margins().get(k).getSizes());
                             } else if (Bottom != null)
-                                System.out.println("Bottom : " + margin.getAttribuite_margins().get(k).getSizes());
+                                System.out.println("\t\t\t\t\t\tBottom : " + margin.getAttribuite_margins().get(k).getSizes());
                         }
                     }
+
                 }
             }
             else if (onClick != null) {
-                System.out.println("************ONCLICK************");
-                System.out.println("OnClick { ");
+                System.out.println("\t\tONCLICK");
+                System.out.println("\t\t\tOnClick { ");
                 if (onClick.getAttribuite_onClickParents().size()>0) {
                     for(int e = 0 ; e < onClick.getAttribuite_onClickParents().size();e++){
                         Attribuite_OnClickParent attribuite_onClickParent = onClick.getAttribuite_onClickParents().get(e);
                         if(attribuite_onClickParent.getEqualizaition()!=null){
                             String Name_Variables = attribuite_onClickParent.getEqualizaition().getName_variables();
                             String Value_Variables = attribuite_onClickParent.getEqualizaition().getValue_variables();
-                            System.out.println(Name_Variables + "=" + Value_Variables);
+                            System.out.println("\t\t\t\t"+Name_Variables + "=" + Value_Variables);
                         }
                         else if (attribuite_onClickParent.getGetData()!=null){
                             String Name_Variables = attribuite_onClickParent.getGetData().getName_variables();
                             String Value_Variables = attribuite_onClickParent.getGetData().getValue_variables();
-                            System.out.println(Name_Variables + "=" + "getData(" + Value_Variables + ");");
+                            System.out.println("\t\t\t\t"+Name_Variables + "=" + "getData(" + Value_Variables + ");");
                         }
                         else if (attribuite_onClickParent.getDot_onClick()!=null){
                             String Name_Variables = attribuite_onClickParent.getDot_onClick().getName_variables();
-                            System.out.println(Name_Variables + ".onClick(){");
+                            System.out.println("\t\t\t\t"+Name_Variables + ".onClick(){");
                             Attribuite_OnClick attribuite_onClick = attribuite_onClickParent.getDot_onClick().getAttribuite_onClick();
                             if(attribuite_onClick!=null){
-                                System.out.println("**********Attribute_onClick*********");
+                                System.out.println("\t\t\t\t\tAttribute_onClick");
                                 ArrayList<Color_onClick>color_onClicks = attribuite_onClick.getColor_onClicks();
                                 ArrayList<Content_onClick>content_onClicks = attribuite_onClick.getContent_onClicks();
                                 ArrayList<Size_OnClick>size_onClicks = attribuite_onClick.getSize_onClicks();
@@ -266,42 +263,42 @@ public class Main {
                                     for(int o = 0 ; o<color_onClicks.size();o++){
                                         String name_var = color_onClicks.get(o).getName_variable();
                                         String val_var = color_onClicks.get(o).getValue_variable();
-                                        System.out.println(name_var + ".Color = " +val_var+";");
+                                        System.out.println("\t\t\t\t\t\t"+name_var + ".Color = " +val_var+";");
                                     }
                                 }
                                 if(content_onClicks!=null){
                                     for(int o = 0 ; o<content_onClicks.size();o++){
                                         String name_var = content_onClicks.get(o).getName_variable();
                                         String val_var = content_onClicks.get(o).getValue_variable();
-                                        System.out.println(name_var + ".Content = " +val_var+";");
+                                        System.out.println("\t\t\t\t\t\t"+name_var + ".Content = " +val_var+";");
                                     }
                                 }
                                 if(background_onClicks!=null){
                                     for(int o = 0 ; o<background_onClicks.size();o++){
                                         String name_var = background_onClicks.get(o).getName_variable();
                                         String val_var = background_onClicks.get(o).getValue_variable();
-                                        System.out.println(name_var + ".Background = " +val_var+";");
+                                        System.out.println("\t\t\t\t\t\t"+name_var + ".Background = " +val_var+";");
                                     }
                                 }
                                 if(size_onClicks!=null){
                                     for(int o = 0 ; o<size_onClicks.size();o++){
                                         String name_var = size_onClicks.get(o).getName_variable();
                                         String val_var = size_onClicks.get(o).getValue_variable();
-                                        System.out.println(name_var + ".Size = " +val_var+";");
+                                        System.out.println("\t\t\t\t\t\t"+name_var + ".Size = " +val_var+";");
                                     }
                                 }
                                 if(width_onClicks!=null){
                                     for(int o = 0 ; o<width_onClicks.size();o++){
                                         String name_var = width_onClicks.get(o).getName_variable();
                                         String val_var = width_onClicks.get(o).getValue_variable();
-                                        System.out.println(name_var + ".Width = " +val_var+";");
+                                        System.out.println("\t\t\t\t\t\t"+name_var + ".Width = " +val_var+";");
                                     }
                                 }
                                 if(height_onClicks!=null){
                                     for(int o = 0 ; o<height_onClicks.size();o++){
                                         String name_var = height_onClicks.get(o).getName_variable();
                                         String val_var = height_onClicks.get(o).getValue_variable();
-                                        System.out.println(name_var + ".Height = " +val_var+";");
+                                        System.out.println("\t\t\t\t\t\t"+name_var + ".Height = " +val_var+";");
                                     }
                                 }
                             }
@@ -379,11 +376,12 @@ public class Main {
         }
 
         if (program.getBody() != null) {
+            boolean check_onClick_entry = false;
             fileWriter.write("\n<body>");
             if (UrlControl == null) {
-                fileWriter.write("\n<form action=\"\" method=\"post\">");
+                fileWriter.write("\n<form id=\"myform\" action=\"\" method=\"post\">");
             } else {
-                fileWriter.write("\n<form action=\"" + UrlControl + "\" method=\"post\">");
+                fileWriter.write("\n<form id=\"myform\" action=\"" + UrlControl + "\" method=\"post\">");
             }
 
             for(int i = 0; i < program.getBody().getAttribuite_bodies().size(); ++i) {
@@ -415,9 +413,9 @@ public class Main {
                 String Background;
                 String ID;
                 String Pos;
+
                 if (text != null) {
                     e = 0;
-
                     while(true) {
                         if (e >= text.getAttribuite_text().size()) {
                             fileWriter.write("\n<p style=\"");
@@ -484,7 +482,6 @@ public class Main {
                         } else if (ID != null) {
                             text_pos = ID;
                         } else if (margin != null) {
-                            System.out.println("\t***MARGIN TexT***");
 
                             for(int k = 0; k < margin.getAttribuite_margins().size(); ++k) {
                                 Pos = null;
@@ -572,11 +569,15 @@ public class Main {
                                         fileWriter.write(" id=\"" + text_id + "\"");
                                     } else if (!is_js(program, text_id)) {
                                         fileWriter.write(" name=\"" + text_id + "\"");
+                                        fileWriter.write(" onClick = \"document.getElementById(\'myform\').submit()\"");
+
                                     }
                                 }
 
+
+
                                 if (button_event != null) {
-                                    fileWriter.write(" action=\"" + button_event + "\"");
+                                    fileWriter.write(" formaction=\"" + button_event + "\"");
                                 }
 
                                 fileWriter.write(">");
@@ -652,9 +653,7 @@ public class Main {
                             ++e;
                         }
                     } else if (textInput != null) {
-                        System.out.println("\t\t***TextInput***");
                         e = 0;
-
                         while(true) {
                             if (e >= textInput.getAttribuite_textInput().size()) {
                                 if (text_pos != null) {
@@ -747,7 +746,6 @@ public class Main {
                             } else if (Pos != null) {
                                 text_pos = Pos;
                             } else if (margin != null) {
-                                System.out.println("\t***Margin Text Input***");
 
                                 for(k = 0; k < margin.getAttribuite_margins().size(); ++k) {
                                     Right = null;
@@ -779,6 +777,7 @@ public class Main {
                             ++e;
                         }
                     } else if (onClick != null) {
+                        check_onClick_entry = true;
                         fileWriter.write("\n</form>");
                         fileWriter.write("\n<script>\n");
                         if (onClick.getAttribuite_onClickParents().size()>0) {
@@ -807,6 +806,7 @@ public class Main {
                                         ArrayList<Width_OnClick> width_onClicks = attribuite_onClick.getWidth_onClicks();
                                         ArrayList<Height_OnClick> height_onClicks = attribuite_onClick.getHeight_onClicks();
                                         int o;
+                                        fileWriter.write("\ndocument.getElementById(\"myform\").addEventListener(\"click\", function(e){e.preventDefault()});\n");
                                         if (color_onClicks != null) {
                                             for(o = 0; o < color_onClicks.size(); ++o) {
                                                 name_var = ((Color_onClick)color_onClicks.get(o)).getName_variable();
@@ -855,15 +855,19 @@ public class Main {
                                             }
                                         }
                                     }
-                                    fileWriter.write("})");
+                                    fileWriter.write("})\n");
 
                                 }
                             }
                         }
+                        fileWriter.write("\n</script>");
                     }
+
                 }
-                fileWriter.write("\n</script>");
+
+
             }
+            if(!check_onClick_entry){fileWriter.write("\n</form>");}
         }
 
         fileWriter.write("\n</body>");
